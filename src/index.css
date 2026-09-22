@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold: #C5A880;
+    --gold-light: #E2CFB6;
+    --gold-dark: #9D7B50;
+    --navy-dark: #0B0F19;
+    --navy-card: #111827;
+    --navy-border: #1E293B;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  .font-serif-luxury {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+::-webkit-scrollbar-thumb {
+  background: #273549;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A880;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px -5px rgba(197, 168, 128, 0.3);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF0D9 0%, #D8BA93 50%, #B89260 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Smooth Interactive Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmerGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: floatSlow 4.5s ease-in-out infinite;
+}
+
+/* Luxury hover transition */
+.luxury-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.luxury-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(197, 168, 128, 0.45);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5), 0 0 20px -3px rgba(197, 168, 128, 0.15);
+}
