@@ -11,10 +11,12 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Netlify Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://netlify.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-lumina--demo1.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://lumina-demo1.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-[Live Demo](#-live-demo--preview) • [Key Features](#-key-features) • [Architecture](#-system-architecture) • [Demo Personas](#-demo-personas--role-access) • [Getting Started](#-getting-started) • [Netlify Deployment](#-deployment-to-netlify)
+🌐 **Live Application**: [https://lumina-demo1.netlify.app/](https://lumina-demo1.netlify.app/)
+
+[Live Application Demo](https://lumina-demo1.netlify.app/) • [Key Features](#-key-features) • [Architecture](#-system-architecture) • [Demo Personas](#-demo-personas--role-access) • [Getting Started](#-getting-started) • [Netlify Deployment](#-deployment-to-netlify)
 
 </div>
 
@@ -156,15 +158,17 @@ Production assets will be generated in `dist/`.
 
 ---
 
-## 🌐 Deployment to Netlify
+## 🌐 Live Demo & Deployment
 
-This project is configured with `netlify.toml` and `public/_redirects`:
+- 🔗 **Production Live Application**: [https://lumina-demo1.netlify.app/](https://lumina-demo1.netlify.app/)
+
+This project is pre-configured for automated continuous deployment with Netlify using `netlify.toml` and `public/_redirects`:
 
 1. Connect your repository to [Netlify](https://app.netlify.com/).
 2. Netlify will auto-detect:
    - **Build command**: `npm run build`
    - **Publish directory**: `dist`
-3. Click **Deploy Site**.
+3. Click **Deploy Site**. SPA routing fallbacks are handled automatically with zero 404 errors.
 
 ---
 
