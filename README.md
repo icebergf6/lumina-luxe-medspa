@@ -1,42 +1,66 @@
-# 🌸 Lumina Luxe MedSpa — Clinic Operations OS & VIP Client Sanctuary
+# 🌸 Lumina Luxe MedSpa — Luxury Aesthetics Clinic OS & VIP Client Sanctuary
 
+<div align="center">
+
+![Lumina Luxe MedSpa Banner](https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=1200)
+
+### *Elegance Redefined, Science Perfected.*
+**A High-Ticket Fullstack Portfolio Web Application for Medical Spas, Cosmetic Surgery & Longevity Clinics.**
+
+[![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Netlify Ready](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://netlify.com/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Netlify Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://netlify.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-> **A high-ticket fullstack portfolio web application engineered for luxury medical spas, aesthetic dermatology clinics, and longevity centers.** Designed to demonstrate enterprise-grade freelance development capabilities ($2,500 – $5,000+ value).
+[Live Demo](#-live-demo--preview) • [Key Features](#-key-features) • [Architecture](#-system-architecture) • [Demo Personas](#-demo-personas--role-access) • [Getting Started](#-getting-started) • [Netlify Deployment](#-deployment-to-netlify)
 
----
-
-## 💎 Project Highlights
-
-- **Zero-Backend Architecture**: 100% independent client-side persistence powered by an event-driven `LocalStorage` engine. Zero database setup or API keys required to test.
-- **Role-Based Simulated Access**: Instant persona switcher (`Admin / Medical Director`, `Staff / Practitioner`, `Client / VIP Patient`) with live capability matrices.
-- **Mobile-First UX / UI**: Custom off-canvas slide-out sidebar drawers, responsive touch-friendly cards, and dynamic touch-action isolated HTML5 signature pad.
-- **Interactive Clinical Evidence**: Real-time Before/After interactive slider with touch drag support.
-- **Financial & Booking Automation**: 4-step appointment booking wizard with automated invoice generation, simulated Stripe credit card checkout with confetti, printable medical tax receipts, and 1-click CSV accounting exports.
+</div>
 
 ---
 
-## 🏛️ Comprehensive Feature Breakdown
+## 💎 Executive Summary
 
-### 1. Luxury Public Landing Page
-- **Hero Section**: High-converting luxury aesthetics, dynamic social proof counters (4.98 rating, 350+ reviews, 94.6% retention), and dual conversion CTAs.
-- **Treatment Menu**: Categorized medical services (Aesthetics, Anti-Aging, Wellness, Body Contouring) with pricing, duration, and one-click booking pre-selection.
-- **Interactive Before & After Slider**: Touch & mouse-controlled anatomical comparison slider with clinical case study notes and protocol specifications.
-- **Medical Specialists Team**: Stanford and Harvard alumni doctor profiles with board certifications, active licenses, and direct booking triggers.
-- **Interactive Price & Bundle Estimator**: Custom package calculator computing session discounts (5% to 20%), total duration, and per-session cost savings.
-- **Client Reviews & Concierge FAQ**: Curated patient feedback and collapsible pre/post-procedure guidance.
-- **Smooth Slide-Over Mobile Drawer**: Clean off-canvas slide-out menu with persona switcher, navigation items, and direct portal CTAs.
+**Lumina Luxe MedSpa** is an enterprise-grade digital flagship and clinic operations system built specifically for high-end aesthetic medicine practices, cosmetic dermatology suites, and longevity wellness clinics. 
+
+It pairs an **editorial-luxury patient-facing web experience** with an **in-clinic business operating system (Clinic OS)** featuring real-time financial tracking, multi-provider calendar orchestration, HTML5 canvas electronic consent forms, automated accounts receivable, and simulated Stripe billing.
+
+> **Designed to demonstrate high-value freelance development capabilities ($2,500 – $5,000+ client contract valuation).**
 
 ---
 
-### 2. Multi-Role Clinic Operations Dashboard
+## 🌟 Key Features
+
+### 🏛️ 1. Editorial Public Web Experience
+- **High-Converting Hero Showcase**: Dynamic verified social proof counters (4.98 rating, 350+ reviews, 94.6% retention) and dual conversion funnels (*Book Online* & *Access Portal*).
+- **Interactive Before & After Anatomical Slider**: Touch & mouse-enabled comparison slider allowing prospective patients to inspect real clinical tissue remodeling and barrier restoration.
+- **Board-Certified Specialists**: Profiles of Stanford and Harvard alumni physicians with verifiable credential badges and direct consultation booking.
+- **Custom Bespoke Price & Bundle Estimator**: Real-time package calculator dynamically factoring multi-session discount tiers (5% to 20%), session durations, and savings breakdown.
+- **Verified Reviews & Concierge FAQ**: Social proof testimonials and accordion guidance for pre/post-procedure care.
+- **Smooth Mobile Off-Canvas Slide Drawer**: A slide-out sidebar navigation with dark blur backdrop, quick role switcher, and action CTAs.
+
+---
+
+### 💻 2. Multi-Role Clinic Operations Dashboard
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        LUMINA LUXE CLINIC OS                           │
+├───────────────────┬───────────────────────────┬────────────────────────┤
+│   👑 ADMIN ROLE   │      🩺 STAFF ROLE        │     💎 CLIENT ROLE     │
+│  (Medical Director│  (Nurse Practitioner)     │     (VIP Patient)      │
+├───────────────────┼───────────────────────────┼────────────────────────┤
+│ • Financial KPIs  │ • Real-time Daily Queue   │ • 24/7 Booking Wizard  │
+│ • SVG Revenue Bar │ • Visual Calendar / Day   │ • Visit Countdown      │
+│ • Treatment Menu  │ • HTML5 Canvas E-Sign     │ • Pre-Arrival Consents │
+│ • Billing Ledger  │ • Dermal Chart Records    │ • 1-Click Stripe Pay   │
+│ • 1-Click CSV Exp │ • Mark Completed Hand-off │ • Printable Tax Invoice│
+└───────────────────┴───────────────────────────┴────────────────────────┘
+```
 
 #### 👑 1. Executive Clinic Director (`Admin`)
-- **Real-Time Financial Analytics**: Gross monthly revenue ($128,450), active bookings volume, retention rate, and interactive weekly revenue SVG bar chart.
+- **Real-Time Financial Analytics**: High-level gross collections ($128,450), active bookings, retention rate, and interactive weekly revenue SVG bar chart.
 - **Provider Schedule Oversight**: Visual 6-column time-grid calendar with appointment status management (`Confirmed`, `In-Progress`, `Completed`, `Cancelled`).
 - **Treatment Catalog Editor**: Live management of service titles, descriptions, duration, and pricing with instant synchronization across the platform.
 - **Automated Billing Ledger**: Accounts receivable ledger, settled payment tracking, and one-click CSV export for QuickBooks / CPA review.
@@ -56,33 +80,55 @@
 
 ---
 
-### 3. Integrated Tooling & Shortcuts
+### 🚀 3. Integrated Tooling & Shortcuts
 
 - **Command Palette (`Ctrl+K` / `Cmd+K`)**: Global spotlight search to instantly jump between views, switch personas, or book appointments.
-- **SMS & Email Notification Simulator**: Realistic Twilio SMS and Resend email dispatch drawer simulating real-world patient alerts.
+- **Automated SMS & Email Notification Simulator**: Realistic Twilio SMS and Resend email dispatch drawer simulating real-world patient alerts.
 - **Interactive Role User Guide & SOP**: Built-in manual with step-by-step procedures tailored to each role, interactive feature launchers, and MedSpa operational workflow flowchart.
 - **One-Click Demo Reset**: Reset all appointments, invoices, and CRM records back to original seed data at any time.
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 👥 Demo Personas & Role Access
 
-| Layer | Technology |
-| :--- | :--- |
-| **Framework** | [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) |
-| **Build Tool** | [Vite 6](https://vitejs.dev/) with `@tailwindcss/vite` |
-| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) with custom luxury color palette (Obsidian `#0B0F19`, Champagne Gold `#C5A880`, Warm Cream `#E2CFB6`) |
-| **Icons** | [Lucide React](https://lucide.dev/) |
-| **State & Storage** | React Context API + LocalStorage Service with event pub/sub subscription bus |
-| **Canvas** | HTML5 2D Canvas API with touch-action isolation |
-| **Deployment** | Pre-configured for [Netlify](https://www.netlify.com/) (`netlify.toml` + `public/_redirects`) |
+| Persona | Name | Role Title | Key Permissions |
+| :--- | :--- | :--- | :--- |
+| **👑 Admin** | **Dr. Eleanor Vance, MD** | Clinic Medical Director | Full financial ledger, pricing edits, master calendar, CSV export |
+| **🩺 Staff** | **Chloe Rivera, NP** | Lead Aesthetic Injector | Queue management, canvas digital consent, chart notes, procedure completion |
+| **💎 Client** | **Sophia Laurent** | VIP Platinum Member | 24/7 self-booking, countdown timer, pre-treatment waivers, Stripe checkout |
+
+*Tip: You can switch personas at any time using the floating bottom switcher or directly from the Demo Profile view.*
 
 ---
 
-## 🚀 Quick Start Guide
+## 📱 Mobile-First UI/UX Engineering
+
+- **Zero Horizontal Overflow**: Verified on 360px, 375px (iPhone SE/13), 390px, and 414px viewports.
+- **Slide-Over Navigation**: Full-height drawer with smooth transitions and backdrop blur.
+- **Responsive Mobile Cards vs Desktop Tables**: Invoices, CRM, and Appointments automatically adapt to native-feeling mobile cards on small screens.
+- **Touch Gesture Handling**: HTML5 canvas and Before/After slider feature dedicated `touch-action: none` to prevent page scrolling while drawing or dragging.
+
+---
+
+## 🛠️ Technology Stack
+
+```
+Frontend Architecture:
+├── React 18 (Component-driven UI, Hooks, Context API)
+├── TypeScript 5 (Strict static typing & interfaces)
+├── Tailwind CSS v4 (Modern HSL luxury tokens & typography)
+├── Vite 6 (Lightning-fast HMR & build bundling)
+├── Lucide React (Curated medical & luxury icon set)
+├── HTML5 Canvas API (Touch e-signature drawing pad)
+└── LocalStorage Engine (Reactive state bus with event subscriptions)
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (version 18 or higher recommended)
+- Node.js (v18 or higher recommended)
 - npm, yarn, or pnpm
 
 ### 1. Clone the repository
@@ -106,31 +152,58 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ```bash
 npm run build
 ```
-The compiled, minified bundle will be generated in the `dist/` directory.
+Production assets will be generated in `dist/`.
 
 ---
 
-## 🌐 Deploy to Netlify
+## 🌐 Deployment to Netlify
 
-This project is pre-configured for seamless deployment to Netlify:
+This project is configured with `netlify.toml` and `public/_redirects`:
 
-1. Connect your GitHub repository to [Netlify](https://app.netlify.com/).
-2. Netlify will automatically detect `netlify.toml`:
+1. Connect your repository to [Netlify](https://app.netlify.com/).
+2. Netlify will auto-detect:
    - **Build command**: `npm run build`
    - **Publish directory**: `dist`
-3. Click **Deploy Site**. SPA routing rules are handled via `public/_redirects` and `netlify.toml`.
+3. Click **Deploy Site**.
 
 ---
 
-## 📱 Mobile Responsiveness Audit
+## 📂 Project Structure
 
-- ✅ **No Horizontal Overflow**: Tested on 360px, 375px (iPhone SE/13), 390px, and 414px viewports.
-- ✅ **Slide-Over Navigation**: Full-height drawer with smooth transitions and backdrop blur.
-- ✅ **Mobile Table Adaptations**: Invoices, CRM, and Appointments adapt to native-feeling mobile cards on small screens.
-- ✅ **Touch Gesture Handling**: HTML5 canvas and Before/After slider feature dedicated `touch-action: none` to prevent page scrolling while drawing or dragging.
+```
+lumina-luxe-medspa/
+├── public/
+│   ├── _redirects              # Netlify SPA redirect rules
+│   ├── favicon.svg             # Brand favicon
+│   └── icons.svg
+├── src/
+│   ├── assets/                 # Brand imagery & graphics
+│   ├── components/
+│   │   ├── common/             # Command palette, demo switcher, notifications
+│   │   ├── dashboard/          # Clinic OS layout & specialized views
+│   │   │   └── views/          # Appointments, CRM, Invoices, Profile, Guide, Stripe
+│   │   └── landing/            # Hero, Treatments, B&A Slider, Doctors, Estimator, FAQ
+│   ├── context/                # AuthContext (roles, navigation state, modals)
+│   ├── data/                   # Seed data (services, doctors, patients, invoices)
+│   ├── services/               # StorageService (LocalStorage CRUD & event bus)
+│   ├── types/                  # TypeScript data interfaces
+│   ├── App.tsx                 # Root application
+│   ├── main.tsx                # Entry point
+│   └── index.css               # Design tokens, fonts, and animation keyframes
+├── netlify.toml                # Netlify deployment configuration
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
 
 ---
 
 ## 📄 License
 
-This project is developed as a showcase portfolio application for freelance client acquisition. Open source under the [MIT License](LICENSE).
+Distributed under the MIT License. See [LICENSE](LICENSE) for more details.
+
+---
+
+<div align="center">
+  <sub>Crafted with passion for luxury medical aesthetic clinics.</sub>
+</div>
