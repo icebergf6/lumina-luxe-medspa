@@ -1,6 +1,7 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CurrencyProvider } from './context/CurrencyContext';
+import { ToastProvider } from './context/ToastContext';
 import { DemoRoleBanner } from './components/common/DemoRoleBanner';
 import { DemoInquiryBanner } from './components/common/DemoInquiryBanner';
 import { NotFoundView } from './components/common/NotFoundView';
@@ -109,7 +110,9 @@ export const App: React.FC = () => {
   return (
     <AuthProvider>
       <CurrencyProvider>
-        <MainContent />
+        <ToastProvider>
+          <MainContent />
+        </ToastProvider>
       </CurrencyProvider>
     </AuthProvider>
   );

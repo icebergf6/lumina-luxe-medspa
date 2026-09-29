@@ -18,10 +18,13 @@ import {
   X,
   BookOpen,
   Package,
+  Search,
 } from 'lucide-react';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
 import { BookingModal } from './views/BookingModal';
 import { StorageService } from '../../services/storage';
+import { useToast } from '../../context/ToastContext';
+import { GuidedTourChecklist } from './GuidedTourChecklist';
 
 // Lazy-loaded dashboard module views for superior performance
 const OverviewView = React.lazy(() => import('./views/OverviewView').then((m) => ({ default: m.OverviewView })));
@@ -56,6 +59,7 @@ export const DashboardLayout: React.FC = () => {
     setOpenBookingModal,
     goToLanding,
   } = useAuth();
+  const { showToast } = useToast();
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -101,6 +105,7 @@ export const DashboardLayout: React.FC = () => {
   const handleReset = () => {
     if (window.confirm('Reset all demo appointments and billing records back to initial state?')) {
       StorageService.resetToDefaults();
+      showToast('Demo environment restored to baseline data', 'info');
     }
   };
 
@@ -253,6 +258,22 @@ export const DashboardLayout: React.FC = () => {
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Exit to Website</span>
+            </button>
+
+            {/* Visible Cmd/Ctrl+K Hint Trigger */}
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
+              }}
+              className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition-colors cursor-pointer"
+              title="Open Command Palette (Ctrl+K or Cmd+K)"
+            >
+              <Search className="w-3.5 h-3.5 text-[#C5A880]" />
+              <span>Quick Actions</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-[#E2CFB6]">
+                ⌘K
+              </kbd>
             </button>
           </div>
 
@@ -439,6 +460,9 @@ export const DashboardLayout: React.FC = () => {
         isOpen={openBookingModal}
         onClose={() => setOpenBookingModal(false)}
       />
+
+      {/* Guided Tour Checklist for Prospective Clinic Owners */}
+      <GuidedTourChecklist />
 
     </div>
   );

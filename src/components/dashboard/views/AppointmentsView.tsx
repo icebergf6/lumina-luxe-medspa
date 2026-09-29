@@ -23,10 +23,12 @@ import { InvoicePrintModal } from './InvoicePrintModal';
 import { ConsentSignatureModal } from './ConsentSignatureModal';
 import { FacialMappingModal } from './FacialMappingModal';
 import { useCurrency } from '../../../context/CurrencyContext';
+import { useToast } from '../../../context/ToastContext';
 
 export const AppointmentsView: React.FC = () => {
   const { setOpenBookingModal } = useAuth();
   const { formatPrice } = useCurrency();
+  const { showToast } = useToast();
   const [appointments, setAppointments] = useState<Appointment[]>(() => StorageService.getAppointments());
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,6 +57,8 @@ export const AppointmentsView: React.FC = () => {
 
   const handleUpdateStatus = (id: string, status: AppointmentStatus) => {
     StorageService.updateAppointmentStatus(id, status);
+    const label = status === 'in-progress' ? 'Checked In' : status.charAt(0).toUpperCase() + status.slice(1);
+    showToast(`Appointment status updated to ${label}`, 'success');
   };
 
   const handleSignatureSuccess = (appointmentId: string) => {
@@ -75,20 +79,44 @@ export const AppointmentsView: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusBadge = (status: AppointmentStatus) => {
+  const renderStatusBadge = (status: AppointmentStatus) => {
     switch (status) {
       case 'confirmed':
-        return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 text-[10px] font-semibold">
+            <CheckCircle className="w-3 h-3 text-blue-400" />
+            <span>Confirmed</span>
+          </span>
+        );
       case 'in-progress':
-        return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-semibold">
+            <Clock className="w-3 h-3 text-amber-400" />
+            <span>In Progress</span>
+          </span>
+        );
       case 'completed':
-        return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold">
+            <Check className="w-3 h-3 text-emerald-400 stroke-[3]" />
+            <span>Completed</span>
+          </span>
+        );
       case 'cancelled':
-        return 'bg-rose-500/20 text-rose-300 border-rose-500/30';
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/30 text-[10px] font-semibold">
+            <XCircle className="w-3 h-3 text-rose-400" />
+            <span>Cancelled</span>
+          </span>
+        );
       case 'pending':
-        return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
       default:
-        return 'bg-slate-700 text-slate-300';
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 text-[10px] font-semibold">
+            <Clock className="w-3 h-3 text-purple-400" />
+            <span>Pending</span>
+          </span>
+        );
     }
   };
 
@@ -362,13 +390,7 @@ export const AppointmentsView: React.FC = () => {
                         <div className="font-bold text-white text-sm">{apt.clientName}</div>
                         <div className="text-[11px] text-slate-400">{apt.clientPhone}</div>
                       </div>
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border capitalize ${getStatusBadge(
-                          apt.status
-                        )}`}
-                      >
-                        {apt.status.replace('-', ' ')}
-                      </span>
+                      {renderStatusBadge(apt.status)}
                     </div>
 
                     <div className="pt-2 border-t border-slate-800/80 space-y-1 text-xs">
@@ -452,7 +474,7 @@ export const AppointmentsView: React.FC = () => {
           <div className="hidden sm:block glass-panel bg-[#111827]/80 rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
             <table className="w-full text-xs text-left text-slate-300">
-              <thead className="bg-slate-900/90 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+              <thead className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur-sm text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
                 <tr>
                   <th className="py-3.5 px-4">Patient</th>
                   <th className="py-3.5 px-4">Treatment</th>
@@ -540,15 +562,9 @@ export const AppointmentsView: React.FC = () => {
                           </div>
                         </td>
 
-                        {/* Status */}
+                        {/* Status with text + icon */}
                         <td className="py-3.5 px-4">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold border capitalize ${getStatusBadge(
-                              apt.status
-                            )}`}
-                          >
-                            {apt.status.replace('-', ' ')}
-                          </span>
+                          {renderStatusBadge(apt.status)}
                         </td>
 
                         {/* Payment */}
