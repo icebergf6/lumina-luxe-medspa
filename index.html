@@ -7,8 +7,25 @@
     
     <title>Lumina Luxe MedSpa | Clinic Portal & Booking Demo</title>
     <meta name="description" content="Interactive MedSpa management & client booking demo featuring multi-role workflows, digital consent charting, and revenue telemetry." />
+    <link rel="canonical" href="https://lumina-demo1.netlify.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lumina-demo1.netlify.app/" />
+    <meta property="og:title" content="Lumina Luxe MedSpa | Clinic Portal & Booking Demo" />
+    <meta property="og:description" content="Interactive MedSpa management & client booking demo featuring multi-role workflows, digital consent charting, and revenue telemetry." />
+    <meta property="og:image" content="https://lumina-demo1.netlify.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://lumina-demo1.netlify.app/" />
+    <meta name="twitter:title" content="Lumina Luxe MedSpa | Clinic Portal & Booking Demo" />
+    <meta name="twitter:description" content="Interactive MedSpa management & client booking demo featuring multi-role workflows, digital consent charting, and revenue telemetry." />
+    <meta name="twitter:image" content="https://lumina-demo1.netlify.app/og-image.jpg" />
     
-    <!-- Luxury Monogram Favicon -->
+    <!-- Luxury Monogram Favicon & Apple Touch Icon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     
@@ -18,7 +35,26 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
   </head>
   <body class="bg-[#0B0F19] text-slate-100 antialiased font-sans selection:bg-[#C5A880]/30 selection:text-[#E2CFB6]">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Accessible Pre-render Crawler Fallback -->
+      <noscript>
+        <div style="padding: 2rem; background: #0B0F19; color: #FAF5EE; font-family: sans-serif;">
+          <h1>Lumina Luxe MedSpa & Longevity Clinic</h1>
+          <p>
+            Welcome to Lumina Luxe MedSpa — an integrated digital clinic portal and scheduling platform designed for aesthetic medical practices.
+          </p>
+          <h2>Featured Clinical Treatments</h2>
+          <ul>
+            <li>HydraFacial Deluxe & LightStim LED Therapy</li>
+            <li>Sculptra Biostimulator Collagen Remodeling</li>
+            <li>Morpheus8 Subdermal RF Microneedling</li>
+            <li>CoolSculpting Elite Targeted Cryolipolysis</li>
+            <li>Intravenous NAD+ Longevity Infusion</li>
+          </ul>
+          <p>Please enable JavaScript to launch the full interactive web application.</p>
+        </div>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
