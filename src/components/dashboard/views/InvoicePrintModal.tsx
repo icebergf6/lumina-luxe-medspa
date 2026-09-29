@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { Invoice } from '../../../types';
 import { X, Printer, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -9,6 +10,7 @@ interface InvoicePrintModalProps {
 }
 
 export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({ invoice, isOpen, onClose }) => {
+  const { formatPrice } = useCurrency();
   if (!isOpen || !invoice) return null;
 
   const handlePrint = () => {
@@ -123,8 +125,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({ invoice, i
                   </div>
                 </td>
                 <td className="py-3 text-right text-slate-600">1</td>
-                <td className="py-3 text-right text-slate-600">${invoice.amount.toFixed(2)}</td>
-                <td className="py-3 text-right font-medium text-slate-900">${invoice.amount.toFixed(2)}</td>
+                <td className="py-3 text-right text-slate-600">{formatPrice(invoice.amount, true)}</td>
+                <td className="py-3 text-right font-medium text-slate-900">{formatPrice(invoice.amount, true)}</td>
               </tr>
             </tbody>
           </table>
@@ -133,15 +135,15 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({ invoice, i
           <div className="border-t border-slate-200 pt-4 space-y-1.5 text-xs text-slate-600">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-medium text-slate-800">${invoice.amount.toFixed(2)}</span>
+              <span className="font-medium text-slate-800">{formatPrice(invoice.amount, true)}</span>
             </div>
             <div className="flex justify-between">
               <span>CA State Clinical Healthcare Tax (9.5%)</span>
-              <span className="font-medium text-slate-800">${invoice.tax.toFixed(2)}</span>
+              <span className="font-medium text-slate-800">{formatPrice(invoice.tax, true)}</span>
             </div>
             <div className="flex justify-between text-base font-bold text-slate-950 border-t border-slate-300 pt-2 font-serif-luxury">
               <span>Total Paid</span>
-              <span>${invoice.total.toFixed(2)}</span>
+              <span>{formatPrice(invoice.total, true)}</span>
             </div>
           </div>
 

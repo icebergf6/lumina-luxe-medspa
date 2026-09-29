@@ -180,7 +180,7 @@ export const InvoicesView: React.FC = () => {
             <div className="pt-2.5 border-t border-slate-800 flex items-center justify-between">
               <div>
                 <span className="text-[10px] text-slate-400 block">Total Billed:</span>
-                <span className="text-base font-bold text-white font-serif-luxury">${inv.total.toFixed(2)}</span>
+                <span className="text-base font-bold text-white font-serif-luxury">{formatPrice(inv.total, true)}</span>
               </div>
 
               <div className="flex items-center gap-2">

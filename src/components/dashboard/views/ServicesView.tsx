@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { StorageService, subscribeToStorageChanges } from '../../../services/storage';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { ServiceItem } from '../../../types';
 import { Sparkles, Clock, Edit2, Check, Plus, DollarSign } from 'lucide-react';
 
 export const ServicesView: React.FC = () => {
+  const { formatPrice } = useCurrency();
   const [services, setServices] = useState<ServiceItem[]>(() => StorageService.getServices());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState<number>(0);
@@ -92,7 +94,7 @@ export const ServicesView: React.FC = () => {
                 {isEditing ? (
                   <div className="flex items-center gap-3 w-full">
                     <div className="flex-1">
-                      <label className="block text-[10px] text-slate-400 mb-0.5">Price ($)</label>
+                      <label className="block text-[10px] text-slate-400 mb-0.5">Base Price ($ USD)</label>
                       <input
                         type="number"
                         value={editPrice}
@@ -117,7 +119,7 @@ export const ServicesView: React.FC = () => {
                       <span>{service.durationMinutes} Minutes</span>
                     </div>
                     <div className="text-lg font-bold font-serif-luxury text-white">
-                      ${service.price}
+                      {formatPrice(service.price)}
                     </div>
                   </>
                 )}

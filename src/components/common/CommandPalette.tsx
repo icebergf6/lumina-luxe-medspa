@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth, DashboardTab } from '../../context/AuthContext';
 import { StorageService } from '../../services/storage';
-import { Search, Command, ArrowRight, User, Calendar, CreditCard, LayoutDashboard, Globe, Sparkles, X } from 'lucide-react';
+import { Search, Command, ArrowRight, User, Calendar, CreditCard, LayoutDashboard, Globe, Sparkles, X, Package, Stethoscope } from 'lucide-react';
 import { UserRole } from '../../types';
 
 export const CommandPalette: React.FC = () => {
@@ -74,6 +74,26 @@ export const CommandPalette: React.FC = () => {
       icon: CreditCard,
       run: () => {
         goToDashboard('invoices');
+        setIsOpen(false);
+      },
+    },
+    {
+      id: 'nav-inventory',
+      title: 'Go to Pharmacy & Consumables Inventory',
+      category: 'Navigation',
+      icon: Package,
+      run: () => {
+        goToDashboard('inventory');
+        setIsOpen(false);
+      },
+    },
+    {
+      id: 'nav-services',
+      title: 'Go to Treatment Menu & Price Catalog',
+      category: 'Navigation',
+      icon: Sparkles,
+      run: () => {
+        goToDashboard('services');
         setIsOpen(false);
       },
     },

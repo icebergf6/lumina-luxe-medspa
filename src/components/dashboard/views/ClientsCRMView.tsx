@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StorageService, subscribeToStorageChanges } from '../../../services/storage';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { ClientRecord } from '../../../types';
 import { Search, User, ShieldCheck, Heart, Sparkles, Phone, Mail, Calendar, DollarSign, Download } from 'lucide-react';
 
 export const ClientsCRMView: React.FC = () => {
+  const { formatPrice } = useCurrency();
   const [clients, setClients] = useState<ClientRecord[]>(() => StorageService.getClients());
   const [search, setSearch] = useState('');
   const [selectedClient, setSelectedClient] = useState<ClientRecord | null>(null);
@@ -89,7 +91,7 @@ export const ClientsCRMView: React.FC = () => {
 
         <div className="glass-card bg-[#111827]/80 rounded-2xl p-4 border border-slate-800">
           <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Avg. Lifetime Value (LTV)</div>
-          <div className="text-2xl font-bold text-[#E2CFB6] font-serif-luxury mt-1">${avgLTV.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-[#E2CFB6] font-serif-luxury mt-1">{formatPrice(avgLTV)}</div>
           <div className="text-[11px] text-slate-400 mt-0.5">Across repeat aesthetic sessions</div>
         </div>
 
@@ -127,7 +129,7 @@ export const ClientsCRMView: React.FC = () => {
               <div>
                 <span className="text-[10px] text-slate-400 block">Total Spend:</span>
                 <span className="font-serif-luxury font-bold text-white text-sm">
-                  ${cli.totalSpent.toLocaleString()}
+                  {formatPrice(cli.totalSpent)}
                 </span>
               </div>
               <div>
@@ -200,7 +202,7 @@ export const ClientsCRMView: React.FC = () => {
 
                   {/* Spend */}
                   <td className="py-3.5 px-4 font-serif-luxury font-bold text-white text-sm">
-                    ${cli.totalSpent.toLocaleString()}
+                    {formatPrice(cli.totalSpent)}
                   </td>
 
                   {/* Visits */}
@@ -268,7 +270,7 @@ export const ClientsCRMView: React.FC = () => {
               <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
                 <div className="text-slate-400 text-[10px] uppercase tracking-wider">Total Lifetime Spend</div>
                 <div className="text-lg font-bold font-serif-luxury text-[#E2CFB6] mt-0.5">
-                  ${selectedClient.totalSpent.toLocaleString()}
+                  {formatPrice(selectedClient.totalSpent)}
                 </div>
               </div>
               <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">

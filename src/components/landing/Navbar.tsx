@@ -13,6 +13,7 @@ import {
   MessageSquare,
   HelpCircle,
   Layers,
+  Compass,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -33,7 +34,7 @@ export const Navbar: React.FC = () => {
 
   // IntersectionObserver for active section highlight
   useEffect(() => {
-    const sectionIds = ['treatments', 'results', 'doctors', 'estimator', 'testimonials', 'faq'];
+    const sectionIds = ['treatments', 'results', 'experience', 'doctors', 'estimator', 'testimonials', 'faq'];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -107,11 +108,12 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { id: 'treatments', label: 'Treatments', icon: Sparkles, desc: 'Advanced aesthetics & RF' },
-    { id: 'results', label: 'Outcomes (B&A)', icon: Layers, desc: 'Interactive clinical case studies' },
+    { id: 'results', label: 'Outcomes', icon: Layers, desc: 'Interactive clinical case studies' },
+    { id: 'experience', label: 'Sanctuary', icon: Compass, desc: '5-star patient concierge' },
     { id: 'doctors', label: 'Specialists', icon: Stethoscope, desc: 'Physicians & clinicians' },
     { id: 'estimator', label: 'Estimator', icon: Calculator, desc: 'Calculate treatment packages' },
     { id: 'testimonials', label: 'Reviews', icon: MessageSquare, desc: '350+ verified client testimonials' },
-    { id: 'faq', label: 'Concierge FAQ', icon: HelpCircle, desc: 'Pre & post-procedure care' },
+    { id: 'faq', label: 'FAQ', icon: HelpCircle, desc: 'Pre & post-procedure care' },
   ];
 
   return (

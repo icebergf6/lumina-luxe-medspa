@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { StorageService } from '../../../services/storage';
 import { ServiceItem, StaffMember } from '../../../types';
 import { X, Calendar, Clock, User, Sparkles, Check, DollarSign } from 'lucide-react';
@@ -13,6 +14,7 @@ interface BookingModalProps {
 
 export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, preselectedServiceId }) => {
   const { user, role, goToDashboard, bookingServiceId } = useAuth();
+  const { formatPrice } = useCurrency();
   const services = StorageService.getServices();
   const staffMembers = StorageService.getStaff();
 
@@ -172,7 +174,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pre
                       <div className="text-[10px] text-slate-400">{srv.durationMinutes} mins • {srv.category}</div>
                     </div>
                     <div className="font-serif-luxury font-bold text-[#E2CFB6] whitespace-nowrap">
-                      ${srv.price}
+                      {formatPrice(srv.price)}
                     </div>
                   </div>
                 ))}
@@ -305,7 +307,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pre
                   <span>Mark as Paid upon booking (Simulate Stripe Card on File)</span>
                 </label>
                 <span className="font-serif-luxury font-bold text-sm text-[#E2CFB6] self-end sm:self-auto">
-                  Total: ${selectedService.price}
+                  Total: {formatPrice(selectedService.price)}
                 </span>
               </div>
             </div>

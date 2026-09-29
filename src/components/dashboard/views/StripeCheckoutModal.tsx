@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StorageService } from '../../../services/storage';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { Invoice } from '../../../types';
 import { X, CreditCard, Lock, Check, ShieldCheck, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -17,6 +18,7 @@ export const StripeCheckoutModal: React.FC<StripeCheckoutModalProps> = ({
   onClose,
   onPaymentSuccess,
 }) => {
+  const { formatPrice } = useCurrency();
   const [cardNumber, setCardNumber] = useState('4242 •••• •••• 4242');
   const [expiry, setExpiry] = useState('12/28');
   const [cvc, setCvc] = useState('888');
@@ -79,7 +81,7 @@ export const StripeCheckoutModal: React.FC<StripeCheckoutModalProps> = ({
               Payment Successful!
             </h3>
             <p className="text-xs text-slate-300">
-              Receipt generated for <span className="font-semibold text-white">${invoice.total.toFixed(2)}</span>. 
+              Receipt generated for <span className="font-semibold text-white">{formatPrice(invoice.total, true)}</span>. 
               Invoice <span className="text-[#C5A880]">{invoice.invoiceNumber}</span> is now marked as Paid.
             </p>
           </div>
@@ -96,7 +98,7 @@ export const StripeCheckoutModal: React.FC<StripeCheckoutModalProps> = ({
                 </span>
               </div>
               <div className="text-2xl font-bold font-serif-luxury text-white">
-                Pay ${invoice.total.toFixed(2)}
+                Pay {formatPrice(invoice.total, true)}
               </div>
               <div className="text-xs text-slate-400 mt-0.5">
                 {invoice.serviceName} • {invoice.clientName}
@@ -181,7 +183,7 @@ export const StripeCheckoutModal: React.FC<StripeCheckoutModalProps> = ({
               ) : (
                 <>
                   <Lock className="w-3.5 h-3.5" />
-                  <span>Authorize & Pay ${invoice.total.toFixed(2)}</span>
+                  <span>Authorize & Pay {formatPrice(invoice.total, true)}</span>
                 </>
               )}
             </button>

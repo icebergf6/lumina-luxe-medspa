@@ -396,7 +396,7 @@ export const AppointmentsView: React.FC = () => {
                     <div className="pt-2 border-t border-slate-800/80 space-y-1 text-xs">
                       <div className="flex items-center justify-between">
                         <span className="font-semibold text-[#E2CFB6]">{apt.serviceName}</span>
-                        <span className="text-white font-bold font-serif-luxury">${apt.price}</span>
+                        <span className="text-white font-bold font-serif-luxury">{formatPrice(apt.price)}</span>
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-400">
                         <span>Provider: {apt.staffName.split(',')[0]}</span>
