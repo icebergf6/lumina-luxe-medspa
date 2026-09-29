@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { BrandLogo } from '../common/BrandLogo';
 import { Sparkles, MapPin, Phone, Mail, Clock, ArrowRight, ShieldCheck, Globe, Share2, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -12,14 +13,7 @@ export const Footer: React.FC = () => {
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#C5A880]/20 flex items-center justify-center border border-[#C5A880]/40">
-                <span className="font-serif-luxury font-bold text-base text-[#E2CFB6]">L</span>
-              </div>
-              <span className="font-serif-luxury text-2xl font-bold tracking-widest text-white uppercase">
-                LUMINA LUXE
-              </span>
-            </div>
+            <BrandLogo size="lg" />
             <p className="text-slate-400 font-light leading-relaxed max-w-sm prose-readable">
               A high-end clinical operating system and client portal designed for aesthetic medicine, facial sculpting, and longevity practices in Beverly Hills and Manhattan.
             </p>

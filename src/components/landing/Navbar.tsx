@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
+import { BrandLogo } from '../common/BrandLogo';
 import {
   Sparkles,
   Calendar,
@@ -126,38 +127,11 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* Brand Logo with Monogram L */}
-        <div
-          className="flex items-center gap-3 cursor-pointer select-none"
+        {/* Brand Logo with Monogram */}
+        <BrandLogo
+          size="md"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          tabIndex={0}
-          role="button"
-          aria-label="Lumina Luxe MedSpa Home"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          }}
-        >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E2CFB6] via-[#C5A880] to-[#9D7B50] p-[1.5px] shadow-lg shadow-[#C5A880]/20 flex items-center justify-center">
-            <div className="w-full h-full bg-[#0B0F19] rounded-[9.5px] flex items-center justify-center">
-              <span className="font-serif-luxury text-xl font-bold text-[#E2CFB6]">L</span>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-widest text-white uppercase">
-                LUMINA
-              </span>
-              <span className="text-[10px] tracking-widest text-[#C5A880] uppercase border border-[#C5A880]/40 px-1.5 py-0.5 rounded font-mono font-semibold">
-                LUXE
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-400 tracking-wider uppercase font-medium">
-              Medical Spa & Longevity
-            </p>
-          </div>
-        </div>
+        />
 
         {/* Desktop Navigation Links with Active Indicator */}
         <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-6 text-sm font-medium">
@@ -258,19 +232,7 @@ export const Navbar: React.FC = () => {
             
             {/* Header & Close Button */}
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#C5A880]/20 flex items-center justify-center border border-[#C5A880]/40">
-                  <span className="font-serif-luxury font-bold text-[#E2CFB6]">L</span>
-                </div>
-                <div>
-                  <div className="font-serif-luxury text-base font-bold text-white tracking-wider">
-                    LUMINA LUXE
-                  </div>
-                  <div className="text-[9px] text-[#C5A880] tracking-widest uppercase font-mono">
-                    BEVERLY HILLS CLINIC
-                  </div>
-                </div>
-              </div>
+              <BrandLogo size="sm" />
 
               <button
                 type="button"

@@ -22,6 +22,7 @@ import {
   Bell,
 } from 'lucide-react';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
+import { BrandLogo } from '../common/BrandLogo';
 import { BookingModal } from './views/BookingModal';
 import { StorageService } from '../../services/storage';
 import { useToast } from '../../context/ToastContext';
@@ -119,18 +120,8 @@ export const DashboardLayout: React.FC = () => {
           
           {/* Logo & Back to Website */}
           <div>
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-[#C5A880]/20 flex items-center justify-center border border-[#C5A880]/40">
-                <Sparkles className="w-4 h-4 text-[#C5A880]" />
-              </div>
-              <div>
-                <span className="font-serif-luxury text-lg font-bold tracking-wider text-white">
-                  LUMINA LUXE
-                </span>
-                <span className="block text-[9px] text-[#C5A880] tracking-widest uppercase font-mono font-semibold">
-                  CLINIC OS • PORTAL
-                </span>
-              </div>
+            <div className="mb-3">
+              <BrandLogo size="sm" showSubtitle={false} />
             </div>
 
             <button

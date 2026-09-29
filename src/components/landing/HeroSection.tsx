@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import heroModelImg from '../../assets/images/hero-model.jpg';
 import {
   ArrowRight,
   Calendar,
@@ -12,62 +13,65 @@ import {
   ChevronRight,
   Activity,
   Layers,
+  Heart,
+  Stethoscope,
+  Check,
 } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
-  const { goToDashboard, setOpenBookingModal } = useAuth();
+  const { goToDashboard, setOpenBookingModal, triggerBookingWithService } = useAuth();
   const [activeHighlight, setActiveHighlight] = useState<'morpheus' | 'hydra' | 'sculptra'>('morpheus');
 
   const highlightData = {
     morpheus: {
+      id: 'srv_morpheus',
       title: 'Morpheus8 RF Microneedling',
       tag: 'Subdermal Adipose Remodeling',
       duration: '60 min',
       provider: 'Dr. Eleanor Vance, MD',
       downtime: '1-2 Days Social Recovery',
-      image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=900',
+      clinicalFocus: 'Deep Collagen Matrix & Fractional Remodeling',
     },
     hydra: {
+      id: 'srv_hydra',
       title: 'HydraFacial Deluxe & LED',
       tag: 'Vortex Nutrient Infusion',
       duration: '45 min',
       provider: 'Chloe Rivera, NP',
       downtime: 'Zero Downtime · Instant Glow',
-      image: 'https://images.unsplash.com/photo-1512290900672-1f4a9744cf2f?auto=format&fit=crop&q=80&w=900',
+      clinicalFocus: 'Cellular Hydration & Deep Follicular Cleanse',
     },
     sculptra: {
+      id: 'srv_sculptra',
       title: 'Sculptra Biostimulation',
       tag: 'PLLA Collagen Regeneration',
       duration: '50 min',
       provider: 'Dr. Eleanor Vance, MD',
       downtime: 'Minimal Swelling · 24 Hours',
-      image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=900',
+      clinicalFocus: 'Structural Volumization & Fibroblast Activation',
     },
   };
 
   const current = highlightData[activeHighlight];
 
   return (
-    <section className="relative overflow-hidden pt-6 pb-16 lg:pt-14 lg:pb-24">
-      {/* Background Model Image with Luxury Cinematic Overlay */}
+    <section className="relative overflow-hidden pt-6 pb-16 lg:pt-14 lg:pb-24 min-h-[85vh] flex items-center">
+      {/* Background Model Image with Luxury Cinematic Overlay (Ultra-Clear Right Side) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
         <img
-          src="/images/hero-model.jpg"
-          alt="Lumina Luxe Aesthetic Model"
-          className="w-full h-full object-cover object-[70%_25%] lg:object-right-top opacity-35 filter contrast-110 brightness-90 transition-all duration-1000"
+          src={heroModelImg}
+          alt="Lumina Luxe Aesthetic Sanctuary"
+          className="w-full h-full object-cover object-[75%_25%] lg:object-right-top opacity-85 lg:opacity-95 filter contrast-105 brightness-100 transition-all duration-700"
         />
-        {/* Soft Radial & Linear Gradients for Seamless Navy/Gold Integration */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 to-[#0B0F19]/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-[#0B0F19]/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(197,168,128,0.14),transparent_70%)]" />
+        {/* Horizontal Gradient: Darker behind left headline text for crisp contrast, completely clear on the model portrait */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 via-45% to-[#0B0F19]/30 lg:to-transparent" />
+        {/* Vertical subtle vignette to ground navbar and next section */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F19]/80 via-transparent to-[#0B0F19] pointer-events-none" />
+        {/* Soft Ambient Gold Glow */}
+        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#C5A880]/15 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
-      {/* Background Ambient Luxury Lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#C5A880]/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/3 -right-24 w-[450px] h-[450px] bg-[#9D7B50]/10 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         
         {/* Top Micro-Concierge Availability Alert */}
         <div className="flex justify-center lg:justify-start mb-6">
@@ -132,7 +136,7 @@ export const HeroSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => goToDashboard()}
-                className="w-full sm:w-auto btn-secondary px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-base font-semibold cursor-pointer flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto btn-secondary px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-base font-semibold cursor-pointer flex items-center justify-center gap-2 group backdrop-blur-md bg-slate-900/80"
               >
                 <ShieldCheck className="w-4 h-4 text-[#C5A880]" />
                 <span>Launch Interactive Portal</span>
@@ -163,95 +167,127 @@ export const HeroSection: React.FC = () => {
 
           </div>
 
-          {/* Right Column: Interactive Clinical Procedure Showcase */}
-          <div className="lg:col-span-5 relative z-10">
-            <div className="relative mx-auto max-w-md lg:max-w-none space-y-3">
+          {/* Right Column: Sleek Floating Glass Telemetry HUD (Doesn't block model background) */}
+          <div className="lg:col-span-5 relative z-10 flex flex-col items-center lg:items-end">
+            <div className="w-full max-w-md space-y-3.5">
               
-              {/* Header Bar: Clinical Badge + Procedure Selector Mini-Tabs (Clean, Zero Collision) */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-[#111827]/90 p-1.5 rounded-2xl border border-slate-800 backdrop-blur-md shadow-lg">
-                <div className="flex items-center gap-2 px-2.5 py-1 text-slate-300">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-semibold text-white tracking-wide">Live Clinical Suites</span>
+              {/* Floating Specialist Live Status Pill */}
+              <div className="p-3.5 rounded-2xl glass-panel bg-[#0B0F19]/65 backdrop-blur-xl border border-[#C5A880]/30 shadow-2xl flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1594824813627-c1040375f46a?auto=format&fit=crop&q=80&w=200"
+                      alt="Dr. Eleanor Vance"
+                      className="w-10 h-10 rounded-full object-cover border border-[#C5A880]/40"
+                    />
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#0B0F19]" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <span>Dr. Eleanor Vance, MD</span>
+                      <span className="text-[9px] px-1.5 py-0.2 bg-[#C5A880]/20 text-[#E2CFB6] rounded border border-[#C5A880]/30 font-mono">
+                        Chief Physician
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">
+                      Clinical Suite 4 • Rodeo Drive Flagship
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800/80">
-                  {(['morpheus', 'hydra', 'sculptra'] as const).map((key) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setActiveHighlight(key)}
-                      className={`py-1 px-2.5 rounded-lg text-[11px] font-semibold capitalize transition-all cursor-pointer ${
-                        activeHighlight === key
-                          ? 'bg-[#C5A880] text-[#0B0F19] shadow-sm font-bold'
-                          : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-                      }`}
-                    >
-                      {key === 'morpheus' ? 'Morpheus8' : key === 'hydra' ? 'HydraFacial' : 'Sculptra'}
-                    </button>
-                  ))}
+                <div className="text-right">
+                  <span className="text-[10px] text-emerald-400 font-semibold block uppercase tracking-wider">
+                    Available Today
+                  </span>
+                  <span className="text-xs font-bold text-[#E2CFB6] font-mono">
+                    3:30 PM
+                  </span>
                 </div>
               </div>
 
-              {/* Main Luxury Frame */}
-              <div className="relative rounded-3xl overflow-hidden border border-[#C5A880]/35 shadow-2xl shadow-black/80 aspect-[16/11] bg-slate-950 group">
-                <img
-                  key={current.title}
-                  src={current.image}
-                  alt={current.title}
-                  width={900}
-                  height={620}
-                  loading="eager"
-                  className="w-full h-full object-cover object-center filter brightness-95 contrast-105 animate-fade-in duration-500 group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent pointer-events-none" />
+              {/* Procedure Selector Mini-Tabs & Live Protocol HUD */}
+              <div className="p-4 sm:p-5 rounded-3xl glass-panel bg-[#0B0F19]/70 backdrop-blur-2xl border border-[#C5A880]/35 shadow-2xl space-y-4">
                 
-                {/* Embedded Top Left Glass Badge */}
-                <div className="absolute top-3 left-3 px-3 py-1.5 rounded-xl glass-panel bg-[#0B0F19]/85 border border-[#C5A880]/30 shadow-lg flex items-center gap-2 backdrop-blur-md">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-[10px] font-semibold text-white tracking-wide">Board-Certified Facility</span>
+                {/* Header & Tabs */}
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
+                      <span>Signature Aesthetic Protocols</span>
+                    </span>
+                    <span className="text-[10px] text-[#C5A880] font-mono">Live Telemetry</span>
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="grid grid-cols-3 gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+                    {(['morpheus', 'hydra', 'sculptra'] as const).map((key) => (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setActiveHighlight(key)}
+                        className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold capitalize transition-all cursor-pointer ${
+                          activeHighlight === key
+                            ? 'bg-gradient-to-r from-[#E2CFB6] via-[#C5A880] to-[#B89260] text-[#0B0F19] font-bold shadow-md'
+                            : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                        }`}
+                      >
+                        {key === 'morpheus' ? 'Morpheus8' : key === 'hydra' ? 'HydraFacial' : 'Sculptra'}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Bottom Card: Real-Time Procedure Telemetry */}
-                <div className="absolute bottom-3 left-3 right-3 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 p-3.5 rounded-2xl glass-panel bg-[#0B0F19]/90 border border-[#C5A880]/30 shadow-xl backdrop-blur-md">
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-[#C5A880] font-bold flex items-center gap-1.5 truncate">
-                      <Sparkles className="w-3.5 h-3.5 flex-shrink-0" /> {current.title}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30 flex-shrink-0">
+                {/* Active Protocol Specs */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2.5 text-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-bold text-white text-sm">{current.title}</div>
+                      <div className="text-[11px] text-[#C5A880] font-medium">{current.tag}</div>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">
                       {current.duration}
                     </span>
                   </div>
-                  
-                  <div className="text-[11px] text-slate-300 flex items-center justify-between mt-1">
-                    <span className="font-light text-slate-400">{current.tag}</span>
-                    <span className="text-[10px] text-[#E2CFB6]">{current.downtime}</span>
-                  </div>
 
-                  <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800 text-[11px] text-slate-300">
-                    <div className="flex items-center gap-1.5 text-slate-400">
-                      <Clock className="w-3.5 h-3.5 text-[#C5A880]" />
-                      <span>Next Slot: Today 3:30 PM</span>
-                    </div>
-                    <div className="font-semibold text-white truncate">
-                      {current.provider}
-                    </div>
+                  <p className="text-[11px] text-slate-300 font-light border-t border-slate-800/70 pt-2">
+                    {current.clinicalFocus}
+                  </p>
+
+                  <div className="flex items-center justify-between pt-1 text-[11px]">
+                    <span className="text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#C5A880]" />
+                      <span>{current.downtime}</span>
+                    </span>
+                    <span className="text-white font-medium">Attended by {current.provider.split(',')[0]}</span>
                   </div>
                 </div>
+
+                {/* Action button inside HUD */}
+                <button
+                  type="button"
+                  onClick={() => triggerBookingWithService(current.id)}
+                  className="w-full py-2.5 rounded-xl bg-[#C5A880]/20 hover:bg-[#C5A880]/30 border border-[#C5A880]/40 text-[#E2CFB6] text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer group"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#C5A880]" />
+                  <span>Book This Treatment</span>
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+
               </div>
 
-              {/* Sub-Card Strip: Trust & Digital Intake (Cleanly Placed Below, Zero Collision) */}
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
-                <div className="p-2.5 rounded-2xl glass-panel bg-[#111827]/80 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
+              {/* Sub-Card Strip: Trust & Digital Intake */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="p-2.5 rounded-2xl glass-panel bg-[#0B0F19]/60 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
                   <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                     <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                   <div className="truncate">
-                    <div className="text-[11px] font-bold text-white truncate">Beverly Hills & Manhattan</div>
-                    <div className="text-[9px] text-slate-400 truncate">Dual Coastal Flagships</div>
+                    <div className="text-[11px] font-bold text-white truncate">Board Certified</div>
+                    <div className="text-[9px] text-slate-400 truncate">Beverly Hills & Manhattan</div>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-2xl glass-panel bg-[#111827]/80 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
+                <div className="p-2.5 rounded-2xl glass-panel bg-[#0B0F19]/60 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
                   <div className="w-7 h-7 rounded-lg bg-[#C5A880]/20 flex items-center justify-center text-[#E2CFB6] flex-shrink-0">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A880]" />
                   </div>
