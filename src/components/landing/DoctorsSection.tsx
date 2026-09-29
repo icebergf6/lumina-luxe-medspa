@@ -17,10 +17,10 @@ export const DoctorsSection: React.FC = () => {
             <span>CLINICAL EXCELLENCE</span>
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-            World-Class Physicians & Specialists
+            Aesthetic Clinicians & Specialists
           </h2>
           <p className="text-slate-400 mt-4 text-sm sm:text-base font-light">
-            Trained at the nation’s top institutions with decades of specialized clinical artistry in facial anatomy and anti-aging medicine.
+            Specialized clinical artistry in facial anatomy, neuromodulators, RF technology, and anti-aging therapies.
           </p>
         </div>
 
@@ -32,11 +32,14 @@ export const DoctorsSection: React.FC = () => {
               className="glass-card bg-[#111827]/70 rounded-2xl p-5 border border-slate-800 hover:border-[#C5A880]/40 transition-all flex flex-col justify-between"
             >
               <div>
-                {/* Photo */}
+                {/* Photo with explicit dimensions to avoid CLS */}
                 <div className="relative rounded-xl overflow-hidden mb-4 aspect-[4/5]">
                   <img
                     src={member.avatar}
-                    alt={member.name}
+                    alt={`${member.name}, ${member.title}`}
+                    width={300}
+                    height={375}
+                    loading="lazy"
                     className="w-full h-full object-cover object-top filter contrast-105"
                   />
                   <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#0B0F19]/90 text-[11px] text-[#E2CFB6] border border-[#C5A880]/30 font-medium">

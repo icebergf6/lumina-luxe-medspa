@@ -242,7 +242,7 @@ export const ClientPortalView: React.FC = () => {
                   "{milestones[0].clinicalNote}"
                 </p>
                 <div className="text-[11px] text-[#C5A880] font-semibold pt-1">
-                  — Dr. Eleanor Vance, MD • Certified Stanford Aesthetic Faculty
+                  — Eleanor Vance, MD • Medical Director
                 </div>
               </div>
 

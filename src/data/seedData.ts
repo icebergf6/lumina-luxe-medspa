@@ -118,7 +118,7 @@ export const INITIAL_STAFF: StaffMember[] = [
     role: 'doctor',
     avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300',
     specialties: ['Facial Contouring', 'Laser Therapeutics', 'Biostimulators'],
-    bio: 'Stanford Medical School graduate with 14+ years pioneering non-surgical aesthetic enhancements in Beverly Hills.',
+    bio: 'Aesthetic physician specialist with 14+ years pioneering non-surgical enhancements and facial longevity in private boutique practice.',
     rating: 4.98,
     reviewsCount: 342,
   },

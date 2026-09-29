@@ -47,17 +47,17 @@ export const ProfileView: React.FC = () => {
     admin: {
       badge: 'Executive Clinic Director',
       icon: Crown,
-      credentials: 'MD, FACS • Harvard & Stanford Medical Alumni',
-      licenseId: 'California Medical Board #A142894 (Active)',
-      department: 'Clinical Executive & Surgical Oversight',
-      officeHours: 'Mon - Fri • 8:00 AM - 6:00 PM PST',
+      credentials: 'MD, FACS • Aesthetic Medicine Specialist',
+      licenseId: 'Simulated Clinical License #DEMO-8492 (Sample)',
+      department: 'Clinical Executive & Practice Oversight',
+      officeHours: 'Mon - Fri • 8:30 AM - 6:00 PM PST',
       location: 'Flagship Suite A • Beverly Hills, CA',
-      bio: 'Board-Certified Aesthetic Surgeon and Medical Director with over 16 years of clinical excellence in non-invasive subdermal remodeling, biostimulator protocols, and medical practice management.',
+      bio: 'Board-Certified Aesthetic Practitioner and Medical Director with over 16 years of clinical excellence in non-invasive subdermal remodeling, biostimulator protocols, and medical practice management.',
       kpis: [
         { label: 'Practice Revenue Oversight', value: '$128,450', detail: 'This month across all suites' },
         { label: 'Active Clinical Staff', value: '8 Practitioners', detail: 'Doctors, NPs & Aestheticians' },
         { label: 'Overall Patient Satisfaction', value: '4.98 / 5.0', detail: 'Based on 350+ audited reviews' },
-        { label: 'Protocol Compliance', value: '100% HIPAA', detail: 'Zero regulatory discrepancies' },
+        { label: 'Protocol Compliance', value: '100% Verified', detail: 'Clinical hygiene & standard audits' },
       ],
       permissions: [
         { capability: 'Full Financial Ledger & P&L Analytics', granted: true, description: 'View gross collections, pending balances, and export CSV' },
@@ -357,7 +357,7 @@ export const ProfileView: React.FC = () => {
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <div>
                   <div className="text-xs font-semibold text-white">Two-Factor Authentication (2FA)</div>
-                  <div className="text-[10px] text-slate-400">Required for HIPAA compliance</div>
+                  <div className="text-[10px] text-slate-400">Required for secure health records</div>
                 </div>
               </div>
               <button

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Sparkles, MapPin, Phone, Mail, Clock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Sparkles, MapPin, Phone, Mail, Clock, ArrowRight, ShieldCheck, Globe, Share2, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { goToDashboard } = useAuth();
@@ -14,20 +14,20 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-[#C5A880]/20 flex items-center justify-center border border-[#C5A880]/40">
-                <Sparkles className="w-4 h-4 text-[#C5A880]" />
+                <span className="font-serif-luxury font-bold text-base text-[#E2CFB6]">L</span>
               </div>
               <span className="font-serif-luxury text-2xl font-bold tracking-widest text-white uppercase">
                 LUMINA LUXE
               </span>
             </div>
-            <p className="text-slate-400 font-light leading-relaxed max-w-sm">
-              Premier aesthetic medicine, facial rejuvenation architecture, and executive cellular longevity clinics serving Beverly Hills and Manhattan.
+            <p className="text-slate-400 font-light leading-relaxed max-w-sm prose-readable">
+              A high-end clinical operating system and client portal designed for aesthetic medicine, facial sculpting, and longevity practices in Beverly Hills and Manhattan.
             </p>
             <div className="pt-2">
               <button
                 type="button"
                 onClick={() => goToDashboard()}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1E293B] hover:bg-[#C5A880] text-slate-200 hover:text-[#0B0F19] border border-[#C5A880]/30 font-semibold text-xs transition-all"
+                className="btn-secondary px-4 py-2 text-xs"
               >
                 <ShieldCheck className="w-4 h-4 text-[#C5A880]" />
                 <span>Open Operations & Client Portal</span>
@@ -39,20 +39,24 @@ export const Footer: React.FC = () => {
           {/* Locations */}
           <div>
             <div className="font-semibold text-white uppercase tracking-wider text-xs mb-3">
-              Flagship Locations
+              Clinic Locations
             </div>
             <div className="space-y-3">
               <div>
                 <div className="text-slate-200 font-medium flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#C5A880]" /> Beverly Hills
                 </div>
-                <div className="text-[11px] text-slate-400 mt-0.5">450 N Rodeo Dr, Suite 400<br />Beverly Hills, CA 90210</div>
+                <div className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                  450 N Rodeo Dr, Suite 400<br />Beverly Hills, CA 90210
+                </div>
               </div>
               <div>
                 <div className="text-slate-200 font-medium flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#C5A880]" /> Manhattan
                 </div>
-                <div className="text-[11px] text-slate-400 mt-0.5">780 Madison Ave, 9th Floor<br />New York, NY 10065</div>
+                <div className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                  780 Madison Ave, 9th Floor<br />New York, NY 10065
+                </div>
               </div>
             </div>
           </div>
@@ -60,26 +64,26 @@ export const Footer: React.FC = () => {
           {/* Clinical Hours */}
           <div>
             <div className="font-semibold text-white uppercase tracking-wider text-xs mb-3">
-              Concierge Hours
+              Operating Hours
             </div>
             <div className="space-y-2 text-[11px]">
               <div className="flex items-center gap-2 text-slate-300">
                 <Clock className="w-3.5 h-3.5 text-[#C5A880]" />
-                <span>Mon – Fri: 08:30 AM – 07:00 PM</span>
+                <span>Mon – Fri: 8:30 AM – 7:00 PM</span>
               </div>
               <div className="text-slate-400 pl-5.5">
-                Saturday: 09:00 AM – 05:00 PM
+                Saturday: 9:00 AM – 5:00 PM
               </div>
               <div className="text-slate-400 pl-5.5">
-                Sunday: Private VIP Consultations Only
+                Sunday: Private VIP Consultations
               </div>
             </div>
           </div>
 
-          {/* Contact */}
+          {/* Contact & Socials */}
           <div>
             <div className="font-semibold text-white uppercase tracking-wider text-xs mb-3">
-              Direct Inquiries
+              Direct Contact
             </div>
             <div className="space-y-2 text-[11px]">
               <div className="flex items-center gap-2 text-slate-300">
@@ -90,25 +94,58 @@ export const Footer: React.FC = () => {
                 <Mail className="w-3.5 h-3.5 text-[#C5A880]" />
                 <span>concierge@luminaluxe.com</span>
               </div>
-              <div className="text-[10px] text-[#C5A880] pt-2">
-                HIPAA Compliant & Confidential
+              <div className="pt-2 flex items-center gap-3 text-slate-400">
+                <a
+                  href="mailto:hello@leosyafiq.com"
+                  className="p-1.5 rounded-lg bg-slate-900 hover:text-[#C5A880] transition-colors"
+                  aria-label="Direct Email Inquiry"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://leosyafiq.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-1.5 rounded-lg bg-slate-900 hover:text-[#C5A880] transition-colors"
+                  aria-label="Portfolio Website"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({ title: 'Lumina Luxe MedSpa Demo', url: window.location.href });
+                    }
+                  }}
+                  className="p-1.5 rounded-lg bg-slate-900 hover:text-[#C5A880] transition-colors cursor-pointer"
+                  aria-label="Share Demo"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="text-[10px] text-amber-400/90 pt-1 font-mono">
+                Interactive Demo · Simulated Data
               </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom copyright */}
+        {/* Bottom copyright & Creator Credit */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div>
-            © {new Date().getFullYear()} Lumina Luxe MedSpa Systems. All clinical rights reserved.
+            © {new Date().getFullYear()} Lumina Luxe MedSpa Systems. For demonstration and portfolio preview.
           </div>
-          <div className="flex items-center gap-4">
-            <span className="hover:text-slate-300 cursor-pointer">Privacy Policy</span>
-            <span>•</span>
-            <span className="hover:text-slate-300 cursor-pointer">Terms of Service</span>
-            <span>•</span>
-            <span className="text-[#C5A880]">Fullstack Client Portal Portfolio Architecture</span>
+          <div className="flex items-center gap-2">
+            <span>Designed & built by</span>
+            <a
+              href="mailto:hello@leosyafiq.com"
+              className="text-[#C5A880] hover:text-[#E2CFB6] font-semibold underline underline-offset-2 transition-colors"
+            >
+              Leo Syafiq
+            </a>
+            <span>• Senior Product Designer & Front-End Engineer</span>
           </div>
         </div>
 

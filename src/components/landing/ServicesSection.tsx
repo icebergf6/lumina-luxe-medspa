@@ -31,7 +31,7 @@ export const ServicesSection: React.FC = () => {
             Advanced Medical Aesthetics & Therapies
           </h2>
           <p className="text-slate-400 mt-4 text-sm sm:text-base font-light">
-            Every procedure is customized to your facial anatomy and cellular biomarkers using cutting-edge FDA-cleared modalities.
+            Every procedure is customized to facial anatomy and cellular biomarkers using cutting-edge FDA-cleared aesthetic modalities.
           </p>
 
           {/* Category Filter Pills */}
@@ -41,7 +41,7 @@ export const ServicesSection: React.FC = () => {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? 'bg-[#C5A880] text-[#0B0F19] font-bold shadow-lg shadow-[#C5A880]/20'
                     : 'bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/80'
@@ -61,11 +61,14 @@ export const ServicesSection: React.FC = () => {
               className="group glass-card bg-[#111827]/80 rounded-2xl overflow-hidden border border-slate-800 hover:border-[#C5A880]/40 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
             >
               <div>
-                {/* Service Image */}
-                <div className="relative h-56 overflow-hidden">
+                {/* Service Image with explicit width/height and lazy loading */}
+                <div className="relative h-56 overflow-hidden aspect-[16/10]">
                   <img
                     src={service.image}
                     alt={service.name}
+                    width={600}
+                    height={380}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-95"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent opacity-90" />
@@ -100,27 +103,27 @@ export const ServicesSection: React.FC = () => {
                   <div className="flex items-center gap-4 mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400">
                     <div className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#C5A880]" />
-                      <span>{service.durationMinutes} Minutes</span>
+                      <span>{service.durationMinutes} Mins</span>
                     </div>
                     {service.recommendedSessions && (
                       <div className="flex items-center gap-1.5">
-                        <Shield className="w-3.5 h-3.5 text-[#C5A880]" />
-                        <span>{service.recommendedSessions} Sessions Rec.</span>
+                        <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{service.recommendedSessions} Sessions Protocol</span>
                       </div>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Action Button */}
-              <div className="px-6 pb-6 pt-0">
+              {/* Card Action */}
+              <div className="p-6 pt-0">
                 <button
                   type="button"
                   onClick={() => triggerBookingWithService(service.id)}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-800/90 hover:bg-[#C5A880] text-slate-200 hover:text-[#0B0F19] font-semibold text-xs transition-all duration-300 border border-slate-700 hover:border-[#C5A880] cursor-pointer"
+                  className="w-full btn-secondary py-2.5 text-xs font-semibold flex items-center justify-center gap-2 group-hover:bg-[#C5A880] group-hover:text-[#0B0F19] group-hover:border-[#C5A880] transition-all cursor-pointer"
                 >
-                  <span>Book Consultation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Select & Book Appointment</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
 

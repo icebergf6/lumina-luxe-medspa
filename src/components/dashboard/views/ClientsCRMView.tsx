@@ -84,7 +84,7 @@ export const ClientsCRMView: React.FC = () => {
         <div className="glass-card bg-[#111827]/80 rounded-2xl p-4 border border-slate-800">
           <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Active Patients</div>
           <div className="text-2xl font-bold text-white font-serif-luxury mt-1">{clients.length}</div>
-          <div className="text-[11px] text-emerald-400 mt-0.5">100% HIPAA Confidential Records</div>
+          <div className="text-[11px] text-emerald-400 mt-0.5">Encrypted Client Records (Demo)</div>
         </div>
 
         <div className="glass-card bg-[#111827]/80 rounded-2xl p-4 border border-slate-800">

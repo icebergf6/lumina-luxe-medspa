@@ -63,8 +63,18 @@ export const InteractiveEstimator: React.FC = () => {
                 return (
                   <div
                     key={service.id}
+                    tabIndex={0}
+                    role="checkbox"
+                    aria-checked={isSelected}
+                    aria-label={`Select treatment ${service.name}`}
                     onClick={() => toggleService(service.id)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    onKeyDown={(e) => {
+                      if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        toggleService(service.id);
+                      }
+                    }}
+                    className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between focus-gold ${
                       isSelected
                         ? 'bg-[#1E293B] border-[#C5A880] shadow-md shadow-[#C5A880]/15'
                         : 'bg-[#111827]/70 border-slate-800 hover:border-slate-700'
@@ -90,7 +100,7 @@ export const InteractiveEstimator: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="font-serif-luxury font-bold text-sm text-[#E2CFB6] ml-2">
+                    <div className="font-serif-luxury font-bold text-sm text-[#E2CFB6] ml-2 tabular-nums">
                       {formatPrice(service.price)}
                     </div>
                   </div>
@@ -143,7 +153,7 @@ export const InteractiveEstimator: React.FC = () => {
                 {selectedServices.map((s) => (
                   <div key={s.id} className="flex items-center justify-between text-slate-300">
                     <span className="truncate max-w-[200px]">{s.name}</span>
-                    <span className="text-white font-medium">{formatPrice(s.price)} / visit</span>
+                    <span className="text-white font-medium tabular-nums">{formatPrice(s.price)} / visit</span>
                   </div>
                 ))}
               </div>
@@ -155,11 +165,11 @@ export const InteractiveEstimator: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
                   <span>Regular Total ({sessions}x visits)</span>
-                  <span className="text-slate-400 line-through">{formatPrice(totalRawPrice)}</span>
+                  <span className="text-slate-400 line-through tabular-nums">{formatPrice(totalRawPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-emerald-400 font-medium">
                   <span>Package Savings</span>
-                  <span>-{formatPrice(discountAmount)}</span>
+                  <span className="tabular-nums">-{formatPrice(discountAmount)}</span>
                 </div>
               </div>
 
@@ -169,29 +179,30 @@ export const InteractiveEstimator: React.FC = () => {
                   <div className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
                     Package Total
                   </div>
-                  <div className="text-[11px] text-slate-400">Includes private suite & aftercare</div>
+                  <div className="text-[11px] text-slate-400">Includes consultation & aftercare</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold font-serif-luxury text-white">
+                  <div className="text-3xl font-bold font-serif-luxury text-white tabular-nums">
                     {formatPrice(finalPrice)}
                   </div>
-                  <div className="text-[11px] text-[#C5A880]">or {formatPrice(Math.round(finalPrice / sessions))} / session</div>
+                  <div className="text-[11px] text-[#C5A880] tabular-nums">or {formatPrice(Math.round(finalPrice / sessions))} / session</div>
                 </div>
               </div>
 
-              {/* CTA Button */}
-              <button
-                type="button"
-                onClick={() => setOpenBookingModal(true)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-[#0B0F19] bg-gradient-to-r from-[#E2CFB6] via-[#C5A880] to-[#B89260] hover:brightness-110 transition-all shadow-xl shadow-[#C5A880]/20 cursor-pointer"
-              >
-                <span>Book This Custom Package</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setOpenBookingModal(true)}
+                  className="w-full btn-gold py-3 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Book This Bespoke Package</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
 
-              <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Zero obligation consultation • Flexible rescheduling</span>
+              <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#C5A880]" />
+                <span>Simulated estimator for custom package workflows</span>
               </div>
 
             </div>

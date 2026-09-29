@@ -1,7 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { DemoRoleBanner } from './components/common/DemoRoleBanner';
+import { DemoInquiryBanner } from './components/common/DemoInquiryBanner';
+import { NotFoundView } from './components/common/NotFoundView';
 import { CommandPalette } from './components/common/CommandPalette';
 import { NotificationDrawer } from './components/common/NotificationDrawer';
 import { Navbar } from './components/landing/Navbar';
@@ -35,10 +37,34 @@ const DashboardLoadingSkeleton: React.FC = () => (
 );
 
 const MainContent: React.FC = () => {
-  const { activeView, openBookingModal, setOpenBookingModal } = useAuth();
+  const { activeView, openBookingModal, setOpenBookingModal, goToLanding } = useAuth();
+  const [is404, setIs404] = useState(false);
+
+  useEffect(() => {
+    // Check if path is non-root and not handled
+    const path = window.location.pathname;
+    if (path !== '/' && path !== '' && path !== '/index.html') {
+      setIs404(true);
+    }
+  }, []);
+
+  if (is404) {
+    return (
+      <NotFoundView
+        onReturnHome={() => {
+          window.history.pushState({}, '', '/');
+          setIs404(false);
+          goToLanding();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-[#C5A880]/30 selection:text-[#E2CFB6]">
+      {/* Top Demo Notice & Floating Clinic Inquiry CTA */}
+      <DemoInquiryBanner />
+
       {activeView === 'landing' ? (
         <div className="flex flex-col min-h-screen">
           <Navbar />
@@ -90,4 +116,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-
