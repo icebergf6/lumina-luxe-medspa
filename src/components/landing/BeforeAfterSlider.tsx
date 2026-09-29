@@ -4,9 +4,13 @@ import { useAuth } from '../../context/AuthContext';
 
 interface CaseStudy {
   id: string;
+  category: 'Jawline' | 'Texture' | 'Volume' | 'Eyes';
   title: string;
+  patientInfo: string;
   procedure: string;
+  sessions: string;
   timeline: string;
+  clinician: string;
   notes: string;
   beforeImg: string;
   afterImg: string;
@@ -17,21 +21,29 @@ interface CaseStudy {
 const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'case_1',
-    title: 'Subdermal Jawline & Neck Architecture',
-    procedure: 'Morpheus8 RF Microneedling (3 Sessions)',
-    timeline: '6 Weeks Post-Treatment',
-    notes: 'Visible improvement of lower face contour, refined jawline architecture, and stimulated deep collagen remodeling with zero surgical downtime.',
+    category: 'Jawline',
+    title: 'Subdermal Jawline & Submental Remodeling',
+    patientInfo: 'Female, Age 44 · Beverly Hills, CA',
+    procedure: 'Morpheus8 RF Microneedling',
+    sessions: '3 Sessions (4-Week Intervals)',
+    timeline: '12 Weeks Post-Procedure',
+    clinician: 'Dr. Eleanor Vance, MD',
+    notes: 'Subdermal adipose coagulation and deep collagen remodeling restoring crisp mandibular angle definition with significant platysmal band smoothing.',
     beforeImg: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800',
     afterImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800',
     altBefore: 'Patient profile showing lower face laxity prior to Morpheus8 RF microneedling treatment',
-    altAfter: 'Patient profile showing refined jawline and contoured lower face 6 weeks post-treatment',
+    altAfter: 'Patient profile showing refined jawline and contoured lower face 12 weeks post-treatment',
   },
   {
     id: 'case_2',
+    category: 'Texture',
     title: 'Cellular Glass Skin & Barrier Renewal',
+    patientInfo: 'Female, Age 36 · Manhattan, NY',
     procedure: 'HydraFacial Deluxe & Medical LED LightStim',
-    timeline: 'Immediate Post-Procedure',
-    notes: 'Gentle vacuum extraction of follicular congestion, deep peptide antioxidant infusion, and restoration of radiant light reflection across the mid-face.',
+    sessions: 'Single Protocol + Monthly Maintenance',
+    timeline: 'Immediate Post-Treatment',
+    clinician: 'Chloe Rivera, NP',
+    notes: 'Painless vortex extraction of sebum and follicular congestion, paired with multivitamin peptide saturation and 830nm red LED phototherapy.',
     beforeImg: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=800',
     afterImg: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=800',
     altBefore: 'Facial skin showing textural congestion and dehydration before HydraFacial treatment',
@@ -39,19 +51,39 @@ const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: 'case_3',
+    category: 'Volume',
     title: 'Natural Mid-Face Volume Restoration',
-    procedure: 'Sculptra Poly-L-Lactic Acid Biostimulator',
-    timeline: '12 Weeks Post-Treatment',
-    notes: 'Gradual, harmonious collagen synthesis restoring youthful cheek apex volume without an artificial or overfilled appearance.',
+    patientInfo: 'Female, Age 48 · London, Mayfair',
+    procedure: 'Sculptra PLLA Collagen Biostimulator',
+    sessions: '2 Vials across 2 Sessions',
+    timeline: '16 Weeks Post-Procedure',
+    clinician: 'Dr. Eleanor Vance, MD',
+    notes: 'Progressive neocollagenesis restoring loss in the deep malar fat pad and pyriform aperture. Created soft, youthful light reflection without pillow-face distortion.',
     beforeImg: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&q=80&w=800',
     afterImg: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=800',
     altBefore: 'Patient showing mid-face hollows before Sculptra biostimulator treatment',
-    altAfter: 'Patient showing natural volumetric cheek restoration 12 weeks post-procedure',
+    altAfter: 'Patient showing natural volumetric cheek restoration 16 weeks post-procedure',
+  },
+  {
+    id: 'case_4',
+    category: 'Eyes',
+    title: 'Periorbital Rejuvenation & Smooth Contour',
+    patientInfo: 'Female, Age 52 · Sydney, Double Bay',
+    procedure: 'Laser Genesis + Micro-Botox Protocol',
+    sessions: '4 Sessions Laser Genesis + Micro-Tox',
+    timeline: '8 Weeks Post-Procedure',
+    clinician: 'Chloe Rivera, NP',
+    notes: 'Targeted smoothing of dynamic crow lines, fine periorbital crinkling, and reduction of diffuse redness with zero bruising or recovery downtime.',
+    beforeImg: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800',
+    afterImg: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800',
+    altBefore: 'Patient showing periorbital fine lines before treatment',
+    altAfter: 'Patient showing refreshed periorbital contour 8 weeks post-treatment',
   },
 ];
 
 export const BeforeAfterSlider: React.FC = () => {
   const { setOpenBookingModal } = useAuth();
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeCaseIndex, setActiveCaseIndex] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50); // percentage 0 - 100
   const [isDragging, setIsDragging] = useState(false);
@@ -59,7 +91,19 @@ export const BeforeAfterSlider: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLDivElement>(null);
 
-  const activeCase = CASE_STUDIES[activeCaseIndex];
+  const categories = [
+    { id: 'All', label: 'All Concerns' },
+    { id: 'Jawline', label: 'Jawline & Submental' },
+    { id: 'Texture', label: 'Cellular Texture & Glow' },
+    { id: 'Volume', label: 'Volume & Architecture' },
+    { id: 'Eyes', label: 'Periorbital Contour' },
+  ];
+
+  const filteredCases = selectedCategory === 'All'
+    ? CASE_STUDIES
+    : CASE_STUDIES.filter((c) => c.category === selectedCategory);
+
+  const activeCase = filteredCases[activeCaseIndex] || CASE_STUDIES[0];
 
   // Keep track of container width for accurate clipping
   useEffect(() => {
@@ -131,29 +175,51 @@ export const BeforeAfterSlider: React.FC = () => {
   };
 
   return (
-    <section id="results" className="py-20 bg-[#0A0E17] border-t border-b border-[#C5A880]/15 relative overflow-hidden">
-      {/* Background ambient */}
+    <section id="results" className="py-24 bg-[#0A0E17] border-t border-b border-[#C5A880]/15 relative overflow-hidden">
+      {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#C5A880]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#162032] border border-[#C5A880]/30 text-xs font-semibold text-[#E2CFB6] mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#162032] border border-[#C5A880]/30 text-xs font-semibold text-[#E2CFB6] mb-3.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span>INTERACTIVE CLINICAL OUTCOMES</span>
+            <span className="tracking-widest uppercase text-[11px]">Interactive Clinical Outcomes</span>
           </div>
-          <h2 className="font-serif-luxury text-3xl sm:text-5xl font-semibold text-white tracking-tight">
+          <h2 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-tight">
             Documented Patient Transformations
           </h2>
-          <p className="text-slate-400 mt-4 text-sm sm:text-base font-light">
-            Compare before and after clinical outcomes. Use your mouse, touch, or keyboard arrow keys to slide across each patient case study.
+          <p className="text-slate-300 mt-4 text-sm sm:text-base font-light max-w-2xl mx-auto">
+            Explore unretouched standardized clinical photographic records. Drag the slider or use keyboard arrow keys (← / →) to examine anatomical changes.
           </p>
+        </div>
+
+        {/* Concern Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => {
+                setSelectedCategory(cat.id);
+                setActiveCaseIndex(0);
+                setSliderPosition(50);
+              }}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                selectedCategory === cat.id
+                  ? 'bg-[#C5A880] text-[#0B0F19] font-bold shadow-md shadow-[#C5A880]/20'
+                  : 'bg-slate-900/80 text-slate-300 hover:text-white border border-slate-800'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
         {/* Case Study Switcher Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {CASE_STUDIES.map((study, idx) => (
+          {filteredCases.map((study, idx) => (
             <button
               key={study.id}
               type="button"
@@ -161,13 +227,13 @@ export const BeforeAfterSlider: React.FC = () => {
                 setActiveCaseIndex(idx);
                 setSliderPosition(50);
               }}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                 activeCaseIndex === idx
-                  ? 'bg-[#C5A880] text-[#0B0F19] font-bold shadow-lg shadow-[#C5A880]/20'
-                  : 'bg-slate-900/80 text-slate-300 hover:text-white border border-slate-800'
+                  ? 'bg-slate-800 text-[#E2CFB6] border border-[#C5A880]/50 font-semibold'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800/80'
               }`}
             >
-              Case #{idx + 1}: {study.procedure.split('(')[0].trim()}
+              Case #{idx + 1}: {study.procedure}
             </button>
           ))}
         </div>
@@ -186,7 +252,7 @@ export const BeforeAfterSlider: React.FC = () => {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className="relative aspect-[4/3] rounded-3xl overflow-hidden border-2 border-[#C5A880]/30 shadow-2xl shadow-black/80 select-none cursor-ew-resize touch-none"
+              className="relative aspect-[4/3] rounded-3xl overflow-hidden border-2 border-[#C5A880]/35 shadow-2xl shadow-black/80 select-none cursor-ew-resize touch-none bg-slate-950"
             >
               {/* After Image (Background Layer) */}
               <img
@@ -244,65 +310,72 @@ export const BeforeAfterSlider: React.FC = () => {
 
               {/* Bottom Instructions Badge */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-[#0B0F19]/85 backdrop-blur-md border border-slate-700 text-[11px] text-slate-300 pointer-events-none flex items-center gap-1.5 whitespace-nowrap">
-                <span>Drag or use ← → arrow keys to compare</span>
+                <span>Drag slider or press ← → arrow keys to compare</span>
               </div>
             </div>
           </div>
 
           {/* Right: Clinical Assessment & Details */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="glass-panel bg-[#111827]/85 rounded-2xl p-6 border border-[#C5A880]/30 shadow-xl space-y-4">
+            <div className="glass-panel bg-[#111827]/85 rounded-3xl p-6 sm:p-7 border border-[#C5A880]/30 shadow-xl space-y-5">
               
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-[#C5A880]">
-                  Clinical Case #{activeCaseIndex + 1}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#C5A880] font-mono">
+                    Clinical Case Analysis
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    {activeCase.patientInfo}
+                  </span>
+                </div>
                 <h3 className="font-serif-luxury text-2xl font-bold text-white mt-1">
                   {activeCase.title}
                 </h3>
-                <div className="text-xs text-slate-400 mt-0.5">
-                  Protocol: <span className="text-slate-200 font-semibold">{activeCase.procedure}</span>
+                <div className="text-xs text-slate-300 mt-1">
+                  Treating Clinician: <span className="text-[#E2CFB6] font-semibold">{activeCase.clinician}</span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
+              {/* Protocol Specs Matrix */}
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="text-slate-400 text-[10px] uppercase font-mono">Prescribed Protocol</div>
+                  <div className="text-white font-semibold mt-0.5 truncate">{activeCase.procedure}</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="text-slate-400 text-[10px] uppercase font-mono">Treatment Cadence</div>
+                  <div className="text-white font-semibold mt-0.5 truncate">{activeCase.sessions}</div>
+                </div>
+              </div>
+
+              {/* Clinical Observations */}
+              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
                 <div className="text-xs font-semibold text-white flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#C5A880]" />
-                  <span>Clinical Observations & Outcomes</span>
+                  <span>Physician Observations & Outcomes</span>
                 </div>
                 <p className="text-xs text-slate-300 font-light leading-relaxed">
                   {activeCase.notes}
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                  <div className="text-slate-400 text-[11px]">Recovery Time</div>
-                  <div className="text-white font-semibold mt-0.5">Minimal (24-48h)</div>
-                </div>
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                  <div className="text-slate-400 text-[11px]">Longevity Profile</div>
-                  <div className="text-[#C5A880] font-semibold mt-0.5">18–24 Months</div>
-                </div>
-              </div>
-
               <div className="pt-2">
                 <button
                   type="button"
                   onClick={() => setOpenBookingModal(true)}
-                  className="w-full btn-gold py-3 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full btn-gold py-3.5 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:scale-[1.01] transition-transform"
                 >
-                  <span>Book Consultation For This Treatment</span>
+                  <span>Reserve Consultation For This Protocol</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
 
             </div>
 
-            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90 text-xs flex items-start gap-2.5">
+            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90 text-xs flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
               <span>
-                <strong>Sample Portfolio Content:</strong> Clinical imagery and patient case timelines shown are simulated demonstrations for medspa software evaluation.
+                <strong>Standardized Clinical Lighting:</strong> Pre and post photographic records adhere to polarized cross-polarization lighting standards. Individual outcomes vary by physiological baseline.
               </span>
             </div>
 

@@ -11,6 +11,7 @@ import { Navbar } from './components/landing/Navbar';
 import { HeroSection } from './components/landing/HeroSection';
 import { ServicesSection } from './components/landing/ServicesSection';
 import { BeforeAfterSlider } from './components/landing/BeforeAfterSlider';
+import { PatientJourneySection } from './components/landing/PatientJourneySection';
 import { DoctorsSection } from './components/landing/DoctorsSection';
 import { InteractiveEstimator } from './components/landing/InteractiveEstimator';
 import { TestimonialsSection } from './components/landing/TestimonialsSection';
@@ -73,6 +74,7 @@ const MainContent: React.FC = () => {
             <HeroSection />
             <ServicesSection />
             <BeforeAfterSlider />
+            <PatientJourneySection />
             <DoctorsSection />
             <InteractiveEstimator />
             <TestimonialsSection />

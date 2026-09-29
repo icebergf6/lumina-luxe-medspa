@@ -52,6 +52,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: true,
     image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 4,
+    modality: 'Vortex Nutrient Infusion + Phototherapy',
+    downtime: '0 Days (Lunchtime Glow)',
+    targetLayer: 'Epidermal & Stratum Corneum',
+    clinicalResults: 'Immediate glow · 4–6 Weeks radiance',
   },
   {
     id: 'srv_2',
@@ -63,6 +67,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: true,
     image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 3,
+    modality: 'Poly-L-Lactic Acid (PLLA) Biostimulator',
+    downtime: 'Minimal Swelling · 24-48 Hours',
+    targetLayer: 'Deep Dermis & Subdermal Plane',
+    clinicalResults: 'Progressive volume · 24+ Months longevity',
   },
   {
     id: 'srv_3',
@@ -74,6 +82,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: true,
     image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 3,
+    modality: 'Fractional RF Subdermal Remodeling',
+    downtime: '1-3 Days Social Recovery',
+    targetLayer: 'Subdermal SMAS & Adipose (up to 4mm)',
+    clinicalResults: 'Neocollagenesis · 12–18 Months tightening',
   },
   {
     id: 'srv_4',
@@ -85,6 +97,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: false,
     image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 2,
+    modality: 'Controlled Dual-Applicator Cryolipolysis',
+    downtime: 'Zero Downtime · Mild Numbness',
+    targetLayer: 'Subcutaneous Adipose Tissue',
+    clinicalResults: '20-25% Fat Cell Reduction per cycle',
   },
   {
     id: 'srv_5',
@@ -96,6 +112,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: false,
     image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 6,
+    modality: 'Micronutrient Cellular Coenzyme Infusion',
+    downtime: 'Zero Downtime · Immediate Vitality',
+    targetLayer: 'Systemic Cellular Mitochondrial Network',
+    clinicalResults: 'Cognitive acuity · Enhanced ATP energy',
   },
   {
     id: 'srv_6',
@@ -107,6 +127,10 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     popular: false,
     image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 5,
+    modality: '1064nm Microsecond Nd:YAG Laser',
+    downtime: 'Zero Downtime · No Peeling',
+    targetLayer: 'Papillary & Reticular Dermis',
+    clinicalResults: 'Pore refinement & Erythema clearance',
   },
 ];
 

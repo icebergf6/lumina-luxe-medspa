@@ -20,6 +20,10 @@ export interface ServiceItem {
   popular?: boolean;
   image: string;
   recommendedSessions?: number;
+  downtime?: string;
+  targetLayer?: string;
+  clinicalResults?: string;
+  modality?: string;
 }
 
 export interface StaffMember {
