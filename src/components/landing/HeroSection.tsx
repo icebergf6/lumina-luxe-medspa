@@ -49,6 +49,19 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden pt-6 pb-16 lg:pt-14 lg:pb-24">
+      {/* Background Model Image with Luxury Cinematic Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+        <img
+          src="/images/hero-model.jpg"
+          alt="Lumina Luxe Aesthetic Model"
+          className="w-full h-full object-cover object-[70%_25%] lg:object-right-top opacity-35 filter contrast-110 brightness-90 transition-all duration-1000"
+        />
+        {/* Soft Radial & Linear Gradients for Seamless Navy/Gold Integration */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 to-[#0B0F19]/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-[#0B0F19]/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(197,168,128,0.14),transparent_70%)]" />
+      </div>
+
       {/* Background Ambient Luxury Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#C5A880]/10 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute top-1/3 -right-24 w-[450px] h-[450px] bg-[#9D7B50]/10 rounded-full blur-[130px] pointer-events-none" />
@@ -86,7 +99,7 @@ export const HeroSection: React.FC = () => {
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
             {/* Prestige Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#131B2A] border border-[#C5A880]/30 shadow-inner">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#131B2A]/90 border border-[#C5A880]/30 shadow-inner backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
               <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-[#E2CFB6]">
                 Beverly Hills & Manhattan · Clinical Longevity OS
@@ -151,29 +164,36 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Right Column: Interactive Clinical Procedure Showcase */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
+          <div className="lg:col-span-5 relative z-10">
+            <div className="relative mx-auto max-w-md lg:max-w-none space-y-3">
               
-              {/* Procedure Selector Mini-Tabs */}
-              <div className="flex items-center justify-center sm:justify-start gap-1.5 mb-3 bg-slate-900/80 p-1 rounded-xl border border-slate-800 backdrop-blur-md">
-                {(['morpheus', 'hydra', 'sculptra'] as const).map((key) => (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => setActiveHighlight(key)}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-semibold capitalize transition-all cursor-pointer ${
-                      activeHighlight === key
-                        ? 'bg-[#C5A880] text-[#0B0F19] shadow-md'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-                    }`}
-                  >
-                    {key === 'morpheus' ? 'Morpheus8' : key === 'hydra' ? 'HydraFacial' : 'Sculptra'}
-                  </button>
-                ))}
+              {/* Header Bar: Clinical Badge + Procedure Selector Mini-Tabs (Clean, Zero Collision) */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-[#111827]/90 p-1.5 rounded-2xl border border-slate-800 backdrop-blur-md shadow-lg">
+                <div className="flex items-center gap-2 px-2.5 py-1 text-slate-300">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[11px] font-semibold text-white tracking-wide">Live Clinical Suites</span>
+                </div>
+
+                <div className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800/80">
+                  {(['morpheus', 'hydra', 'sculptra'] as const).map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setActiveHighlight(key)}
+                      className={`py-1 px-2.5 rounded-lg text-[11px] font-semibold capitalize transition-all cursor-pointer ${
+                        activeHighlight === key
+                          ? 'bg-[#C5A880] text-[#0B0F19] shadow-sm font-bold'
+                          : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                      }`}
+                    >
+                      {key === 'morpheus' ? 'Morpheus8' : key === 'hydra' ? 'HydraFacial' : 'Sculptra'}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Main Luxury Frame */}
-              <div className="relative rounded-3xl overflow-hidden border border-[#C5A880]/35 shadow-2xl shadow-black/80 aspect-[16/11] bg-slate-950">
+              <div className="relative rounded-3xl overflow-hidden border border-[#C5A880]/35 shadow-2xl shadow-black/80 aspect-[16/11] bg-slate-950 group">
                 <img
                   key={current.title}
                   src={current.image}
@@ -181,12 +201,18 @@ export const HeroSection: React.FC = () => {
                   width={900}
                   height={620}
                   loading="eager"
-                  className="w-full h-full object-cover object-center filter brightness-95 contrast-105 animate-fade-in duration-500"
+                  className="w-full h-full object-cover object-center filter brightness-95 contrast-105 animate-fade-in duration-500 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent pointer-events-none" />
                 
-                {/* Floating Bottom Card: Real-Time Procedure Telemetry */}
-                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3.5 sm:p-4 rounded-2xl glass-panel bg-[#0B0F19]/90 border border-[#C5A880]/30 shadow-xl backdrop-blur-md">
+                {/* Embedded Top Left Glass Badge */}
+                <div className="absolute top-3 left-3 px-3 py-1.5 rounded-xl glass-panel bg-[#0B0F19]/85 border border-[#C5A880]/30 shadow-lg flex items-center gap-2 backdrop-blur-md">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-[10px] font-semibold text-white tracking-wide">Board-Certified Facility</span>
+                </div>
+
+                {/* Bottom Card: Real-Time Procedure Telemetry */}
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 p-3.5 rounded-2xl glass-panel bg-[#0B0F19]/90 border border-[#C5A880]/30 shadow-xl backdrop-blur-md">
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="text-[#C5A880] font-bold flex items-center gap-1.5 truncate">
                       <Sparkles className="w-3.5 h-3.5 flex-shrink-0" /> {current.title}
@@ -204,7 +230,7 @@ export const HeroSection: React.FC = () => {
                   <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800 text-[11px] text-slate-300">
                     <div className="flex items-center gap-1.5 text-slate-400">
                       <Clock className="w-3.5 h-3.5 text-[#C5A880]" />
-                      <span>Next Slot: 3:30 PM</span>
+                      <span>Next Slot: Today 3:30 PM</span>
                     </div>
                     <div className="font-semibold text-white truncate">
                       {current.provider}
@@ -213,25 +239,26 @@ export const HeroSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Floating Badge Top Left */}
-              <div className="absolute -top-4 -left-4 p-3 rounded-2xl glass-panel bg-[#111827]/95 border border-[#C5A880]/30 shadow-xl hidden sm:flex items-center gap-2.5 backdrop-blur-md">
-                <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                  <ShieldCheck className="w-4 h-4" />
+              {/* Sub-Card Strip: Trust & Digital Intake (Cleanly Placed Below, Zero Collision) */}
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
+                <div className="p-2.5 rounded-2xl glass-panel bg-[#111827]/80 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="truncate">
+                    <div className="text-[11px] font-bold text-white truncate">Beverly Hills & Manhattan</div>
+                    <div className="text-[9px] text-slate-400 truncate">Dual Coastal Flagships</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs font-bold text-white">Board Certified</div>
-                  <div className="text-[10px] text-slate-400">Beverly Hills & Manhattan</div>
-                </div>
-              </div>
 
-              {/* Floating Badge Bottom Right */}
-              <div className="absolute -bottom-4 -right-3 p-3 rounded-2xl glass-panel bg-[#111827]/95 border border-[#C5A880]/30 shadow-xl hidden sm:flex items-center gap-2.5 backdrop-blur-md">
-                <div className="w-8 h-8 rounded-xl bg-[#C5A880]/20 flex items-center justify-center text-[#E2CFB6]">
-                  <CheckCircle2 className="w-4 h-4 text-[#C5A880]" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-white">Digital Consent E-Sign</div>
-                  <div className="text-[10px] text-slate-400">Paperless Patient Intake</div>
+                <div className="p-2.5 rounded-2xl glass-panel bg-[#111827]/80 border border-slate-800/80 flex items-center gap-2.5 backdrop-blur-md">
+                  <div className="w-7 h-7 rounded-lg bg-[#C5A880]/20 flex items-center justify-center text-[#E2CFB6] flex-shrink-0">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A880]" />
+                  </div>
+                  <div className="truncate">
+                    <div className="text-[11px] font-bold text-white truncate">Digital Consent E-Sign</div>
+                    <div className="text-[9px] text-slate-400 truncate">Paperless Patient Intake</div>
+                  </div>
                 </div>
               </div>
 
