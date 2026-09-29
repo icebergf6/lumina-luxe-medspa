@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useAuth, DashboardTab } from '../../context/AuthContext';
 import {
   Sparkles,
@@ -17,17 +17,33 @@ import {
   Menu,
   X,
   BookOpen,
+  Package,
 } from 'lucide-react';
-import { OverviewView } from './views/OverviewView';
-import { AppointmentsView } from './views/AppointmentsView';
-import { ClientsCRMView } from './views/ClientsCRMView';
-import { InvoicesView } from './views/InvoicesView';
-import { ServicesView } from './views/ServicesView';
-import { ClientPortalView } from './views/ClientPortalView';
-import { ProfileView } from './views/ProfileView';
-import { UserGuideView } from './views/UserGuideView';
+import { CurrencySwitcher } from '../common/CurrencySwitcher';
 import { BookingModal } from './views/BookingModal';
 import { StorageService } from '../../services/storage';
+
+// Lazy-loaded dashboard module views for superior performance
+const OverviewView = React.lazy(() => import('./views/OverviewView').then((m) => ({ default: m.OverviewView })));
+const AppointmentsView = React.lazy(() => import('./views/AppointmentsView').then((m) => ({ default: m.AppointmentsView })));
+const ClientsCRMView = React.lazy(() => import('./views/ClientsCRMView').then((m) => ({ default: m.ClientsCRMView })));
+const InvoicesView = React.lazy(() => import('./views/InvoicesView').then((m) => ({ default: m.InvoicesView })));
+const ServicesView = React.lazy(() => import('./views/ServicesView').then((m) => ({ default: m.ServicesView })));
+const InventoryView = React.lazy(() => import('./views/InventoryView').then((m) => ({ default: m.InventoryView })));
+const ClientPortalView = React.lazy(() => import('./views/ClientPortalView').then((m) => ({ default: m.ClientPortalView })));
+const ProfileView = React.lazy(() => import('./views/ProfileView').then((m) => ({ default: m.ProfileView })));
+const UserGuideView = React.lazy(() => import('./views/UserGuideView').then((m) => ({ default: m.UserGuideView })));
+
+const ViewLoadingSkeleton: React.FC = () => (
+  <div className="py-12 flex flex-col items-center justify-center space-y-3 animate-pulse text-slate-400">
+    <div className="w-10 h-10 rounded-xl bg-[#C5A880]/20 flex items-center justify-center border border-[#C5A880]/30">
+      <Sparkles className="w-5 h-5 text-[#C5A880] animate-spin" />
+    </div>
+    <div className="text-xs font-mono uppercase tracking-wider text-slate-400">
+      Loading Clinic Module...
+    </div>
+  </div>
+);
 
 export const DashboardLayout: React.FC = () => {
   const {
@@ -47,6 +63,7 @@ export const DashboardLayout: React.FC = () => {
     { id: 'overview', label: 'Overview & KPIs', icon: LayoutDashboard, roles: ['admin', 'staff'] },
     { id: 'appointments', label: 'Appointments Queue', icon: Calendar, roles: ['admin', 'staff', 'client'] },
     { id: 'clients', label: 'Patient CRM', icon: Users, roles: ['admin', 'staff'] },
+    { id: 'inventory', label: 'Consumables & Stock', icon: Package, roles: ['admin', 'staff'] },
     { id: 'invoices', label: 'Invoices & Billing', icon: CreditCard, roles: ['admin', 'staff', 'client'] },
     { id: 'services', label: 'Treatment Menu', icon: FileText, roles: ['admin'] },
     { id: 'client-portal', label: 'VIP Client Sanctuary', icon: Sparkles, roles: ['client', 'admin'] },
@@ -64,6 +81,8 @@ export const DashboardLayout: React.FC = () => {
         return <AppointmentsView />;
       case 'clients':
         return <ClientsCRMView />;
+      case 'inventory':
+        return <InventoryView />;
       case 'invoices':
         return <InvoicesView />;
       case 'services':
@@ -238,7 +257,10 @@ export const DashboardLayout: React.FC = () => {
           </div>
 
           {/* Right Header items */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Global Currency Switcher */}
+            <CurrencySwitcher />
+
             {/* Quick Link to App Guide */}
             <button
               type="button"
@@ -404,7 +426,9 @@ export const DashboardLayout: React.FC = () => {
         {/* Dashboard Dynamic View Body with smooth animated tab transitions */}
         <main className="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto pb-24">
           <div key={activeTab} className="animate-fade-in-up">
-            {renderContent()}
+            <Suspense fallback={<ViewLoadingSkeleton />}>
+              {renderContent()}
+            </Suspense>
           </div>
         </main>
 

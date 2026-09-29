@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StorageService, subscribeToStorageChanges } from '../../../services/storage';
 import { useAuth } from '../../../context/AuthContext';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { Appointment, Invoice } from '../../../types';
 import { DollarSign, Calendar, Users, TrendingUp, Sparkles, Clock, CheckCircle, ArrowUpRight, Plus, Eye, CreditCard } from 'lucide-react';
 import { StripeCheckoutModal } from './StripeCheckoutModal';
@@ -8,6 +9,7 @@ import { InvoicePrintModal } from './InvoicePrintModal';
 
 export const OverviewView: React.FC = () => {
   const { role, user, setOpenBookingModal, setActiveTab } = useAuth();
+  const { formatPrice } = useCurrency();
   const [metrics, setMetrics] = useState(() => StorageService.getMetrics());
   const [appointments, setAppointments] = useState<Appointment[]>(() => StorageService.getAppointments());
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
@@ -90,7 +92,7 @@ export const OverviewView: React.FC = () => {
           </div>
           <div className="mt-3 flex items-baseline justify-between">
             <div className="text-2xl font-bold font-serif-luxury text-white">
-              ${metrics.totalRevenue.toLocaleString()}
+              {formatPrice(metrics.totalRevenue)}
             </div>
             <div className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400">
               <ArrowUpRight className="w-3.5 h-3.5" />

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StorageService, subscribeToStorageChanges } from '../../../services/storage';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { Invoice } from '../../../types';
 import { Search, CreditCard, Printer, Eye, CheckCircle2, Clock, DollarSign, Sparkles, Download } from 'lucide-react';
 import { StripeCheckoutModal } from './StripeCheckoutModal';
 import { InvoicePrintModal } from './InvoicePrintModal';
 
 export const InvoicesView: React.FC = () => {
+  const { formatPrice } = useCurrency();
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
   const [filter, setFilter] = useState<'all' | 'paid' | 'pending'>('all');
   const [search, setSearch] = useState('');
@@ -96,7 +98,7 @@ export const InvoicesView: React.FC = () => {
             </div>
           </div>
           <div className="text-2xl font-bold font-serif-luxury text-white mt-2">
-            ${paidTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            {formatPrice(paidTotal, true)}
           </div>
           <div className="text-[11px] text-emerald-400 mt-0.5">Stripe Direct Deposit & Cards</div>
         </div>
@@ -109,7 +111,7 @@ export const InvoicesView: React.FC = () => {
             </div>
           </div>
           <div className="text-2xl font-bold font-serif-luxury text-white mt-2">
-            ${pendingTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            {formatPrice(pendingTotal, true)}
           </div>
           <div className="text-[11px] text-amber-400 mt-0.5">Awaiting 1-click patient payment</div>
         </div>
@@ -234,7 +236,7 @@ export const InvoicesView: React.FC = () => {
                   <td className="py-3.5 px-4 text-slate-400">{inv.date}</td>
                   <td className="py-3.5 px-4 text-slate-400">{inv.dueDate}</td>
                   <td className="py-3.5 px-4 font-bold text-white font-serif-luxury text-sm">
-                    ${inv.total.toFixed(2)}
+                    {formatPrice(inv.total, true)}
                   </td>
                   <td className="py-3.5 px-4">
                     <span

@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { StorageService, subscribeToStorageChanges } from '../../../services/storage';
 import { useAuth } from '../../../context/AuthContext';
-import { Appointment, Invoice } from '../../../types';
-import { Sparkles, Calendar, Clock, MapPin, CreditCard, Printer, ShieldCheck, Plus, CheckCircle2 } from 'lucide-react';
+import { useCurrency } from '../../../context/CurrencyContext';
+import { Appointment, Invoice, PersonalProgressMilestone } from '../../../types';
+import {
+  Sparkles,
+  Calendar,
+  Clock,
+  MapPin,
+  CreditCard,
+  Printer,
+  ShieldCheck,
+  Plus,
+  CheckCircle2,
+  Sliders,
+  ChevronsLeftRight,
+} from 'lucide-react';
 import { StripeCheckoutModal } from './StripeCheckoutModal';
 import { InvoicePrintModal } from './InvoicePrintModal';
 
 export const ClientPortalView: React.FC = () => {
   const { user, setOpenBookingModal } = useAuth();
+  const { formatPrice } = useCurrency();
   const [appointments, setAppointments] = useState<Appointment[]>(() => StorageService.getAppointments());
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
+  const [milestones, setMilestones] = useState<PersonalProgressMilestone[]>(() =>
+    StorageService.getProgressMilestones(user.email)
+  );
+  const [sliderPosition, setSliderPosition] = useState<number>(50);
 
   // Modals
   const [selectedInvoiceForPay, setSelectedInvoiceForPay] = useState<Invoice | null>(null);
@@ -19,9 +37,10 @@ export const ClientPortalView: React.FC = () => {
     const unsub = subscribeToStorageChanges(() => {
       setAppointments(StorageService.getAppointments());
       setInvoices(StorageService.getInvoices());
+      setMilestones(StorageService.getProgressMilestones(user.email));
     });
     return unsub;
-  }, []);
+  }, [user.email]);
 
   // Filter client's specific records
   const myAppointments = appointments.filter(
@@ -144,6 +163,104 @@ export const ClientPortalView: React.FC = () => {
         </div>
       )}
 
+      {/* VIP Patient Personal Progress Journey */}
+      {milestones.length > 0 && (
+        <div className="glass-panel bg-[#111827]/90 rounded-2xl p-6 sm:p-7 border border-[#C5A880]/30 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#C5A880] uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
+                <span>My Clinical Journey & Tissue Remodeling</span>
+              </div>
+              <h3 className="font-serif-luxury text-xl sm:text-2xl font-bold text-white mt-1">
+                {milestones[0].treatmentName}
+              </h3>
+            </div>
+            <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold text-xs border border-emerald-500/30">
+              {milestones[0].skinImprovementScore}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            {/* Interactive Before & After Slider */}
+            <div className="md:col-span-6 relative rounded-2xl overflow-hidden aspect-[4/3] border border-slate-700 select-none shadow-2xl">
+              {/* After Image */}
+              <img
+                src={milestones[0].afterImage}
+                alt="Post-Treatment Result"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <span className="absolute bottom-3 right-3 px-2 py-1 rounded-md bg-black/75 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider z-10 border border-white/10">
+                Current (Day 30)
+              </span>
+
+              {/* Before Image (Clipped) */}
+              <div
+                className="absolute inset-0 overflow-hidden"
+                style={{ width: `${sliderPosition}%` }}
+              >
+                <img
+                  src={milestones[0].beforeImage}
+                  alt="Baseline Pre-Treatment"
+                  className="absolute inset-0 w-full h-full object-cover max-w-none"
+                  style={{ width: '100%', height: '100%' }}
+                />
+                <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-black/75 backdrop-blur-md text-[10px] font-bold text-[#E2CFB6] uppercase tracking-wider z-10 border border-[#C5A880]/30">
+                  Baseline (Day 1)
+                </span>
+              </div>
+
+              {/* Slider Line & Handle */}
+              <div
+                className="absolute top-0 bottom-0 w-0.5 bg-[#C5A880] shadow-lg pointer-events-none z-20"
+                style={{ left: `${sliderPosition}%` }}
+              >
+                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#C5A880] text-[#0B0F19] shadow-xl flex items-center justify-center border-2 border-white">
+                  <ChevronsLeftRight className="w-4 h-4" />
+                </div>
+              </div>
+
+              {/* Hidden Range Input for full touch & drag support */}
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={sliderPosition}
+                onChange={(e) => setSliderPosition(Number(e.target.value))}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30"
+                aria-label="Drag to compare before and after"
+              />
+            </div>
+
+            {/* Doctor's Observation Notes */}
+            <div className="md:col-span-6 space-y-3">
+              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+                  Attending Physician Clinical Notes
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed italic">
+                  "{milestones[0].clinicalNote}"
+                </p>
+                <div className="text-[11px] text-[#C5A880] font-semibold pt-1">
+                  — Dr. Eleanor Vance, MD • Certified Stanford Aesthetic Faculty
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div className="text-slate-400 text-[10px] uppercase">Treatment Protocol</div>
+                  <div className="font-bold text-white mt-0.5">Session 3 of 4</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div className="text-slate-400 text-[10px] uppercase">Next Maintenance Due</div>
+                  <div className="font-bold text-emerald-400 mt-0.5">In 60 Days</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Grid: My Treatment History & My Invoices */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
@@ -208,7 +325,7 @@ export const ClientPortalView: React.FC = () => {
                     {inv.invoiceNumber} • {inv.date}
                   </div>
                   <div className="text-[11px] font-serif-luxury font-bold text-[#E2CFB6] mt-0.5">
-                    ${inv.total.toFixed(2)}
+                    {formatPrice(inv.total, true)}
                   </div>
                 </div>
 

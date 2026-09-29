@@ -1,4 +1,15 @@
-import { Appointment, ClientRecord, Invoice, ServiceItem, StaffMember, UserProfile } from '../types';
+import {
+  Appointment,
+  ClientRecord,
+  FacialChartRecord,
+  InventoryItem,
+  Invoice,
+  PersonalProgressMilestone,
+  ServiceItem,
+  StaffMember,
+  UserProfile,
+} from '../types';
+import { getRelativeLocalDate } from '../utils/dateUtils';
 
 export const DEMO_USERS: Record<string, UserProfile> = {
   admin: {
@@ -146,11 +157,9 @@ export const INITIAL_STAFF: StaffMember[] = [
   },
 ];
 
-// Helper to get formatted dates relative to today
+// Helper to get formatted dates relative to today in local timezone
 const getRelativeDate = (offsetDays: number): string => {
-  const d = new Date();
-  d.setDate(d.getDate() + offsetDays);
-  return d.toISOString().split('T')[0];
+  return getRelativeLocalDate(offsetDays);
 };
 
 export const INITIAL_APPOINTMENTS: Appointment[] = [
@@ -456,3 +465,177 @@ export const INITIAL_CLIENTS: ClientRecord[] = [
     memberSince: '2024-08-01',
   },
 ];
+
+export const INITIAL_INVENTORY: InventoryItem[] = [
+  {
+    id: 'inv_item_1',
+    sku: 'MED-BTX-100',
+    name: 'Botox® Cosmetic (Allergan)',
+    category: 'Neurotoxin',
+    currentStock: 145,
+    unit: 'Units (100u Vials)',
+    minimumThreshold: 50,
+    costPerUnit: 6.25,
+    batchNumber: 'BTX-2026-99A',
+    expiryDate: '2027-04-15',
+    supplier: 'Allergan Aesthetics USA',
+    lastRestocked: '2026-09-10',
+  },
+  {
+    id: 'inv_item_2',
+    sku: 'MED-VOL-01',
+    name: 'Juvéderm® Voluma XC (1.0 mL)',
+    category: 'Dermal Filler',
+    currentStock: 28,
+    unit: 'Syringes',
+    minimumThreshold: 10,
+    costPerUnit: 285.00,
+    batchNumber: 'JVD-VOL-8820',
+    expiryDate: '2027-08-30',
+    supplier: 'AbbVie Dermal Division',
+    lastRestocked: '2026-09-05',
+  },
+  {
+    id: 'inv_item_3',
+    sku: 'MED-KYS-01',
+    name: 'Restylane® Kysse Lip Contour (1.0 mL)',
+    category: 'Dermal Filler',
+    currentStock: 19,
+    unit: 'Syringes',
+    minimumThreshold: 8,
+    costPerUnit: 260.00,
+    batchNumber: 'RST-KYS-401',
+    expiryDate: '2027-06-12',
+    supplier: 'Galderma Laboratories',
+    lastRestocked: '2026-08-28',
+  },
+  {
+    id: 'inv_item_4',
+    sku: 'MED-MPH-24',
+    name: 'Morpheus8 Subdermal 24-Pin Cartridges',
+    category: 'Laser/RF Consumable',
+    currentStock: 8, // Below threshold of 10 -> Low stock alert
+    unit: 'Sterile Cartridges',
+    minimumThreshold: 10,
+    costPerUnit: 140.00,
+    batchNumber: 'INM-MPH-7712',
+    expiryDate: '2028-01-20',
+    supplier: 'InMode Medical Systems',
+    lastRestocked: '2026-08-15',
+  },
+  {
+    id: 'inv_item_5',
+    sku: 'MED-HYD-TIP',
+    name: 'HydraFacial HydroPeel® Blue Extraction Tips',
+    category: 'HydraFacial Tip',
+    currentStock: 64,
+    unit: 'Single-Use Tips',
+    minimumThreshold: 20,
+    costPerUnit: 18.50,
+    batchNumber: 'HDF-BLU-1029',
+    expiryDate: '2028-11-01',
+    supplier: 'BeautyHealth Co.',
+    lastRestocked: '2026-09-12',
+  },
+  {
+    id: 'inv_item_6',
+    sku: 'MED-NAD-500',
+    name: 'NAD+ Cellular Longevity Lyophilized Vials (500mg)',
+    category: 'IV Wellness',
+    currentStock: 15,
+    unit: 'Infusion Vials',
+    minimumThreshold: 5,
+    costPerUnit: 120.00,
+    batchNumber: 'NAD-LON-3390',
+    expiryDate: '2026-12-31',
+    supplier: 'Olympia Compounding Pharmacy',
+    lastRestocked: '2026-09-01',
+  },
+];
+
+export const INITIAL_FACIAL_CHARTS: FacialChartRecord[] = [
+  {
+    id: 'fchart_101',
+    appointmentId: 'apt_101',
+    clientName: 'Sophia Laurent',
+    clientEmail: 'sophia.laurent@gmail.com',
+    serviceName: 'HydraFacial Deluxe & LED Therapy',
+    date: getRelativeDate(0),
+    injectorName: 'Chloe Rivera, NP',
+    points: [
+      {
+        id: 'pt_1',
+        zoneId: 'glabella',
+        zoneName: 'Glabellar Complex (11s)',
+        x: 50,
+        y: 33,
+        product: 'Botox® Cosmetic',
+        dosage: 20,
+        unit: 'Units',
+        notes: 'Targeted corrugator and procerus muscles. Zero ecchymosis.',
+      },
+      {
+        id: 'pt_2',
+        zoneId: 'crows_feet_left',
+        zoneName: "Crow's Feet (Orbicularis Oculi L)",
+        x: 32,
+        y: 37,
+        product: 'Botox® Cosmetic',
+        dosage: 10,
+        unit: 'Units',
+        notes: 'Lateral orbital rim subcutaneous injection.',
+      },
+      {
+        id: 'pt_3',
+        zoneId: 'crows_feet_right',
+        zoneName: "Crow's Feet (Orbicularis Oculi R)",
+        x: 68,
+        y: 37,
+        product: 'Botox® Cosmetic',
+        dosage: 10,
+        unit: 'Units',
+        notes: 'Lateral orbital rim subcutaneous injection.',
+      },
+      {
+        id: 'pt_4',
+        zoneId: 'cheek_apex_l',
+        zoneName: 'Zygomatic Arch / Cheek Apex (L)',
+        x: 35,
+        y: 47,
+        product: 'Juvéderm® Voluma XC',
+        dosage: 0.5,
+        unit: 'mL',
+        notes: 'Deep periosteal bolus for lateral midface lift.',
+      },
+      {
+        id: 'pt_5',
+        zoneId: 'cheek_apex_r',
+        zoneName: 'Zygomatic Arch / Cheek Apex (R)',
+        x: 65,
+        y: 47,
+        product: 'Juvéderm® Voluma XC',
+        dosage: 0.5,
+        unit: 'mL',
+        notes: 'Deep periosteal bolus for lateral midface lift.',
+      },
+    ],
+    totalBotoxUnits: 40,
+    totalFillerMl: 1.0,
+    clinicalNotes: 'Patient tolerated procedure comfortably. Applied post-procedure arnica gel and LED red light. Reviewed 4-hour upright protocol.',
+  },
+];
+
+export const INITIAL_PROGRESS_MILESTONES: PersonalProgressMilestone[] = [
+  {
+    id: 'milestone_1',
+    clientEmail: 'sophia.laurent@gmail.com',
+    treatmentName: 'Morpheus8 RF & Deluxe HydraFacial Protocol',
+    date: getRelativeDate(-30),
+    sessionNumber: 3,
+    beforeImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=700',
+    afterImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=700',
+    clinicalNote: 'Remarkable collagen remodeling visible across midface and jawline contour. Epidermal barrier hydration improved by 84%. Dermal density visibly tightened.',
+    skinImprovementScore: '94% Tissue Remodeling',
+  },
+];
+

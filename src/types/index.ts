@@ -102,3 +102,57 @@ export interface ClinicMetrics {
   todayAppointmentsCount: number;
   pendingInvoicesCount: number;
 }
+
+export interface InjectionPoint {
+  id: string;
+  zoneId: string;
+  zoneName: string;
+  x: number; // percentage coordinate 0-100
+  y: number; // percentage coordinate 0-100
+  product: string;
+  dosage: number;
+  unit: 'Units' | 'mL';
+  notes?: string;
+}
+
+export interface FacialChartRecord {
+  id: string;
+  appointmentId: string;
+  clientName: string;
+  clientEmail: string;
+  serviceName: string;
+  date: string;
+  injectorName: string;
+  points: InjectionPoint[];
+  totalBotoxUnits: number;
+  totalFillerMl: number;
+  clinicalNotes: string;
+}
+
+export interface InventoryItem {
+  id: string;
+  sku: string;
+  name: string;
+  category: 'Neurotoxin' | 'Dermal Filler' | 'Laser/RF Consumable' | 'HydraFacial Tip' | 'IV Wellness';
+  currentStock: number;
+  unit: string;
+  minimumThreshold: number;
+  costPerUnit: number;
+  batchNumber: string;
+  expiryDate: string;
+  supplier: string;
+  lastRestocked: string;
+}
+
+export interface PersonalProgressMilestone {
+  id: string;
+  clientEmail: string;
+  treatmentName: string;
+  date: string;
+  sessionNumber: number;
+  beforeImage: string;
+  afterImage: string;
+  clinicalNote: string;
+  skinImprovementScore: string;
+}
+

@@ -30,17 +30,14 @@ It pairs an **editorial-luxury patient-facing web experience** with an **in-clin
 
 > **Designed to demonstrate high-value freelance development capabilities ($2,500 – $5,000+ client contract valuation).**
 
----
-
-## 🌟 Key Features
-
-### 🏛️ 1. Editorial Public Web Experience
+--### 🏛️ 1. Editorial Public Web Experience
 - **High-Converting Hero Showcase**: Dynamic verified social proof counters (4.98 rating, 350+ reviews, 94.6% retention) and dual conversion funnels (*Book Online* & *Access Portal*).
 - **Interactive Before & After Anatomical Slider**: Touch & mouse-enabled comparison slider allowing prospective patients to inspect real clinical tissue remodeling and barrier restoration.
+- **Global Multi-Currency Engine**: Instant dynamic pricing toggle supporting USD ($), IDR (Rp), EUR (€), GBP (£), and SGD (S$) across all treatment cards, package estimators, and invoices.
 - **Board-Certified Specialists**: Profiles of Stanford and Harvard alumni physicians with verifiable credential badges and direct consultation booking.
 - **Custom Bespoke Price & Bundle Estimator**: Real-time package calculator dynamically factoring multi-session discount tiers (5% to 20%), session durations, and savings breakdown.
 - **Verified Reviews & Concierge FAQ**: Social proof testimonials and accordion guidance for pre/post-procedure care.
-- **Smooth Mobile Off-Canvas Slide Drawer**: A slide-out sidebar navigation with dark blur backdrop, quick role switcher, and action CTAs.
+- **Smooth Mobile Off-Canvas Slide Drawer**: A slide-out sidebar navigation with dark blur backdrop, quick role switcher, currency picker, and action CTAs.
 
 ---
 
@@ -54,15 +51,17 @@ It pairs an **editorial-luxury patient-facing web experience** with an **in-clin
 │  (Medical Director│  (Nurse Practitioner)     │     (VIP Patient)      │
 ├───────────────────┼───────────────────────────┼────────────────────────┤
 │ • Financial KPIs  │ • Real-time Daily Queue   │ • 24/7 Booking Wizard  │
-│ • SVG Revenue Bar │ • Visual Calendar / Day   │ • Visit Countdown      │
-│ • Treatment Menu  │ • HTML5 Canvas E-Sign     │ • Pre-Arrival Consents │
-│ • Billing Ledger  │ • Dermal Chart Records    │ • 1-Click Stripe Pay   │
-│ • 1-Click CSV Exp │ • Mark Completed Hand-off │ • Printable Tax Invoice│
-└───────────────────┴───────────────────────────┴────────────────────────┘
+│ • SVG Revenue Bar │ • Facial Injection Map    │ • Personal B&A Journey │
+│ • Pharmacy Stocks │ • Retina Canvas E-Sign    │ • Visit Countdown      │
+│ • Auto-Depletion  │ • Unit Dosage Calculator  │ • Pre-Arrival Consents │
+│ • Billing Ledger  │ • Mark Completed Hand-off │ • 1-Click Stripe Pay   │
+│ • 1-Click CSV Exp │ • Clinical Progress Notes │ • Printable Tax Invoice│
+└───────────────────┴───────────────────────────┴──────────────────────┘
 ```
 
 #### 👑 1. Executive Clinic Director (`Admin`)
-- **Real-Time Financial Analytics**: High-level gross collections ($128,450), active bookings, retention rate, and interactive weekly revenue SVG bar chart.
+- **Real-Time Financial Analytics**: High-level gross collections, active bookings, retention rate, and interactive weekly revenue SVG bar chart with multi-currency toggle.
+- **Medical Consumables & Pharmacy Inventory**: Real-time stock tracking for Botox (units), Juvederm (syringes), Morpheus8 (cartridges), and HydraFacial tips with automated depletion on procedure completion.
 - **Provider Schedule Oversight**: Visual 6-column time-grid calendar with appointment status management (`Confirmed`, `In-Progress`, `Completed`, `Cancelled`).
 - **Treatment Catalog Editor**: Live management of service titles, descriptions, duration, and pricing with instant synchronization across the platform.
 - **Automated Billing Ledger**: Accounts receivable ledger, settled payment tracking, and one-click CSV export for QuickBooks / CPA review.
@@ -70,19 +69,28 @@ It pairs an **editorial-luxury patient-facing web experience** with an **in-clin
 
 #### 🩺 2. Aesthetic Nurse Practitioner (`Staff`)
 - **Daily Treatment Queue**: Filtered daily appointment queue with room check-in capabilities.
+- **Interactive Facial Anatomical Injection Mapping**: Visual craniofacial SVG mapping tool allowing injectors to mark landmarks (Forehead, Glabella, Crow's feet, Cheeks, Lips, Jawline), adjust neurotoxin/filler dosages, and log clinical reactions.
 - **Mobile Day Switcher**: Scrollable day selector pills (`[Today] [Wed] [Thu]...`) displaying vertical schedule slots on smartphones.
-- **HTML5 Canvas E-Signature Pad**: Dynamic drawing pad for medical consent forms with stylus/finger touch support, stroke smoothing, and verification badges.
+- **Retina-Ready HTML5 Canvas E-Signature Pad**: Dynamic drawing pad scaled with `window.devicePixelRatio` for razor-sharp signatures on high-DPI and iPhone displays.
 - **Clinical Progress Notes**: Inspection of dermal charts, reported contraindications, and treatment parameter notes.
 
 #### 💎 3. VIP Client Sanctuary (`Client`)
+- **Personal Before & After Journey Slider**: Dedicated progress milestone comparison tool allowing VIP clients to visually compare Day 1 baseline vs Day 30 tissue remodeling results.
 - **Upcoming Visit Countdown**: Live countdown timer to next private suite session with specialist details and suite arrival instructions.
 - **24/7 Online Booking Wizard**: 4-step wizard to pick treatments, doctors, dates, and morning/afternoon slots.
 - **Pre-Arrival Digital Consent**: Review and e-sign legal waivers directly from mobile devices before arriving at the clinic.
-- **1-Click Stripe Billing & Tax Receipts**: Simulated Stripe credit card modal with input validation, test card filler, celebratory confetti, and print-ready PDF/paper receipts.
+- **1-Click Stripe Billing & Tax Receipts**: Simulated Stripe credit card modal with input validation, test card filler, celebratory confetti, and print-ready PDF/paper receipts in selected currency.
 
 ---
 
-### 🚀 3. Integrated Tooling & Shortcuts
+### 🚀 3. Performance & Modern Architecture
+- **Vite Rollup Code Splitting**: Initial page entry chunk optimized down to **~90 kB** with lazy loading for all Clinic OS modules.
+- **Retina-DPI Canvas Smoothing**: Canvas contexts automatically scale to physical display resolution, preventing signature pixelation.
+- **Timezone-Safe Local Date Formatter**: Prevents UTC offset date-shift discrepancies.
+
+---
+
+### 🚀 4. Integrated Tooling & Shortcuts
 
 - **Command Palette (`Ctrl+K` / `Cmd+K`)**: Global spotlight search to instantly jump between views, switch personas, or book appointments.
 - **Automated SMS & Email Notification Simulator**: Realistic Twilio SMS and Resend email dispatch drawer simulating real-world patient alerts.

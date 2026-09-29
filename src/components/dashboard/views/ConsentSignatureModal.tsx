@@ -26,10 +26,14 @@ export const ConsentSignatureModal: React.FC<ConsentSignatureModalProps> = ({
     if (isOpen && canvasRef.current) {
       const canvas = canvasRef.current;
       const containerWidth = canvas.parentElement?.clientWidth || 340;
-      canvas.width = containerWidth;
-      canvas.height = 140;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = containerWidth * dpr;
+      canvas.height = 140 * dpr;
+      canvas.style.width = `${containerWidth}px`;
+      canvas.style.height = '140px';
       const ctx = canvas.getContext('2d');
       if (ctx) {
+        ctx.scale(dpr, dpr);
         ctx.strokeStyle = '#C5A880';
         ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
@@ -79,7 +83,8 @@ export const ConsentSignatureModal: React.FC<ConsentSignatureModalProps> = ({
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const dpr = window.devicePixelRatio || 1;
+      ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
       setHasDrawn(false);
     }
   };

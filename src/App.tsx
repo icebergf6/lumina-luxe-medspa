@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import { DemoRoleBanner } from './components/common/DemoRoleBanner';
 import { CommandPalette } from './components/common/CommandPalette';
 import { NotificationDrawer } from './components/common/NotificationDrawer';
@@ -12,8 +13,26 @@ import { InteractiveEstimator } from './components/landing/InteractiveEstimator'
 import { TestimonialsSection } from './components/landing/TestimonialsSection';
 import { FaqSection } from './components/landing/FaqSection';
 import { Footer } from './components/landing/Footer';
-import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { BookingModal } from './components/dashboard/views/BookingModal';
+import { Sparkles } from 'lucide-react';
+
+const DashboardLayout = React.lazy(() =>
+  import('./components/dashboard/DashboardLayout').then((m) => ({ default: m.DashboardLayout }))
+);
+
+const DashboardLoadingSkeleton: React.FC = () => (
+  <div className="min-h-screen bg-[#090D16] flex items-center justify-center p-6 text-slate-100">
+    <div className="flex flex-col items-center gap-4 text-center animate-pulse">
+      <div className="w-14 h-14 rounded-2xl bg-[#C5A880]/15 border border-[#C5A880]/40 flex items-center justify-center shadow-lg shadow-[#C5A880]/20">
+        <Sparkles className="w-7 h-7 text-[#C5A880] animate-spin" />
+      </div>
+      <div>
+        <div className="font-serif-luxury text-xl font-bold tracking-wider text-white">LUMINA LUXE</div>
+        <div className="text-[10px] text-[#C5A880] tracking-widest uppercase font-mono mt-1">Initializing Clinic OS...</div>
+      </div>
+    </div>
+  </div>
+);
 
 const MainContent: React.FC = () => {
   const { activeView, openBookingModal, setOpenBookingModal } = useAuth();
@@ -35,7 +54,9 @@ const MainContent: React.FC = () => {
           <Footer />
         </div>
       ) : (
-        <DashboardLayout />
+        <Suspense fallback={<DashboardLoadingSkeleton />}>
+          <DashboardLayout />
+        </Suspense>
       )}
 
       {/* Global Booking Modal available in Landing mode */}
@@ -61,9 +82,12 @@ const MainContent: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <AuthProvider>
-      <MainContent />
+      <CurrencyProvider>
+        <MainContent />
+      </CurrencyProvider>
     </AuthProvider>
   );
 };
 
 export default App;
+

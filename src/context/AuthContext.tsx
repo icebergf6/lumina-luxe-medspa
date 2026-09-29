@@ -8,6 +8,7 @@ export type DashboardTab =
   | 'clients'
   | 'invoices'
   | 'services'
+  | 'inventory'
   | 'client-portal'
   | 'profile'
   | 'user-guide';

@@ -16,13 +16,17 @@ import {
   PenTool,
   ShieldCheck,
   Check,
+  Sparkles,
 } from 'lucide-react';
 import { StripeCheckoutModal } from './StripeCheckoutModal';
 import { InvoicePrintModal } from './InvoicePrintModal';
 import { ConsentSignatureModal } from './ConsentSignatureModal';
+import { FacialMappingModal } from './FacialMappingModal';
+import { useCurrency } from '../../../context/CurrencyContext';
 
 export const AppointmentsView: React.FC = () => {
   const { setOpenBookingModal } = useAuth();
+  const { formatPrice } = useCurrency();
   const [appointments, setAppointments] = useState<Appointment[]>(() => StorageService.getAppointments());
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,6 +37,7 @@ export const AppointmentsView: React.FC = () => {
   const [selectedInvoiceForPay, setSelectedInvoiceForPay] = useState<Invoice | null>(null);
   const [selectedInvoiceForPrint, setSelectedInvoiceForPrint] = useState<Invoice | null>(null);
   const [selectedAptForConsent, setSelectedAptForConsent] = useState<Appointment | null>(null);
+  const [selectedAptForFacialChart, setSelectedAptForFacialChart] = useState<Appointment | null>(null);
   
   // Track signed e-signatures locally
   const [signedAptIds, setSignedAptIds] = useState<Record<string, boolean>>(() => {
@@ -487,7 +492,7 @@ export const AppointmentsView: React.FC = () => {
                         {/* Treatment */}
                         <td className="py-3.5 px-4">
                           <div className="font-medium text-white">{apt.serviceName}</div>
-                          <div className="text-[11px] text-slate-400">{apt.durationMinutes} mins • ${apt.price}</div>
+                          <div className="text-[11px] text-slate-400">{apt.durationMinutes} mins • {formatPrice(apt.price)}</div>
                         </td>
 
                         {/* Staff */}
@@ -504,23 +509,35 @@ export const AppointmentsView: React.FC = () => {
                           </div>
                         </td>
 
-                        {/* Medical Consent & E-Signature */}
+                        {/* Medical Consent & Dermal Chart */}
                         <td className="py-3.5 px-4">
-                          {isSigned ? (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                              <Check className="w-3 h-3 stroke-[3]" />
-                              <span>E-Signed</span>
-                            </span>
-                          ) : (
+                          <div className="flex flex-col gap-1 items-start">
+                            {isSigned ? (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                <Check className="w-3 h-3 stroke-[3]" />
+                                <span>E-Signed</span>
+                              </span>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setSelectedAptForConsent(apt)}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-slate-800 hover:bg-[#C5A880] text-slate-300 hover:text-[#0B0F19] border border-slate-700 transition-colors cursor-pointer"
+                              >
+                                <PenTool className="w-3 h-3" />
+                                <span>Sign Consent</span>
+                              </button>
+                            )}
+
                             <button
                               type="button"
-                              onClick={() => setSelectedAptForConsent(apt)}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-slate-800 hover:bg-[#C5A880] text-slate-300 hover:text-[#0B0F19] border border-slate-700 transition-colors"
+                              onClick={() => setSelectedAptForFacialChart(apt)}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-[#C5A880]/15 hover:bg-[#C5A880]/30 text-[#E2CFB6] border border-[#C5A880]/30 transition-colors cursor-pointer"
+                              title="Open Facial Anatomical Injection Chart"
                             >
-                              <PenTool className="w-3 h-3" />
-                              <span>Sign Consent</span>
+                              <Sparkles className="w-3 h-3 text-[#C5A880]" />
+                              <span>Dermal Map</span>
                             </button>
-                          )}
+                          </div>
                         </td>
 
                         {/* Status */}
@@ -637,6 +654,12 @@ export const AppointmentsView: React.FC = () => {
         isOpen={!!selectedAptForConsent}
         onClose={() => setSelectedAptForConsent(null)}
         onSignedSuccess={handleSignatureSuccess}
+      />
+
+      <FacialMappingModal
+        appointment={selectedAptForFacialChart}
+        isOpen={!!selectedAptForFacialChart}
+        onClose={() => setSelectedAptForFacialChart(null)}
       />
 
     </div>

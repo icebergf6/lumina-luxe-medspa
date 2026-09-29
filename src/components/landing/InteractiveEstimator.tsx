@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { StorageService } from '../../services/storage';
 import { useAuth } from '../../context/AuthContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { Calculator, Check, ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
 
 export const InteractiveEstimator: React.FC = () => {
   const { setOpenBookingModal } = useAuth();
+  const { formatPrice } = useCurrency();
   const services = StorageService.getServices();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([services[0]?.id || '', services[1]?.id || '']);
@@ -89,7 +91,7 @@ export const InteractiveEstimator: React.FC = () => {
                     </div>
 
                     <div className="font-serif-luxury font-bold text-sm text-[#E2CFB6] ml-2">
-                      ${service.price}
+                      {formatPrice(service.price)}
                     </div>
                   </div>
                 );
@@ -141,7 +143,7 @@ export const InteractiveEstimator: React.FC = () => {
                 {selectedServices.map((s) => (
                   <div key={s.id} className="flex items-center justify-between text-slate-300">
                     <span className="truncate max-w-[200px]">{s.name}</span>
-                    <span className="text-white font-medium">${s.price} / visit</span>
+                    <span className="text-white font-medium">{formatPrice(s.price)} / visit</span>
                   </div>
                 ))}
               </div>
@@ -153,11 +155,11 @@ export const InteractiveEstimator: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between text-slate-400">
                   <span>Regular Total ({sessions}x visits)</span>
-                  <span className="text-slate-400 line-through">${totalRawPrice}</span>
+                  <span className="text-slate-400 line-through">{formatPrice(totalRawPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-emerald-400 font-medium">
                   <span>Package Savings</span>
-                  <span>-${discountAmount}</span>
+                  <span>-{formatPrice(discountAmount)}</span>
                 </div>
               </div>
 
@@ -171,9 +173,9 @@ export const InteractiveEstimator: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold font-serif-luxury text-white">
-                    ${finalPrice}
+                    {formatPrice(finalPrice)}
                   </div>
-                  <div className="text-[11px] text-[#C5A880]">or ${(finalPrice / sessions).toFixed(0)} / session</div>
+                  <div className="text-[11px] text-[#C5A880]">or {formatPrice(Math.round(finalPrice / sessions))} / session</div>
                 </div>
               </div>
 

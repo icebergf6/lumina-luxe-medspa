@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { StorageService } from '../../services/storage';
 import { useAuth } from '../../context/AuthContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { ServiceItem } from '../../types';
 import { Clock, Sparkles, ArrowRight, Shield } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
   const { triggerBookingWithService } = useAuth();
+  const { formatPrice } = useCurrency();
   const [services] = useState<ServiceItem[]>(() => StorageService.getServices());
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
@@ -82,7 +84,7 @@ export const ServicesSection: React.FC = () => {
                   {/* Price Tag Overlay */}
                   <div className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-xl bg-[#0B0F19]/90 backdrop-blur-md border border-[#C5A880]/30">
                     <span className="text-xs text-slate-400 font-light">From </span>
-                    <span className="text-base font-bold text-white font-serif-luxury">${service.price}</span>
+                    <span className="text-base font-bold text-white font-serif-luxury">{formatPrice(service.price)}</span>
                   </div>
                 </div>
 

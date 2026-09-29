@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { CurrencySwitcher } from '../common/CurrencySwitcher';
 import {
   Sparkles,
   Calendar,
@@ -115,7 +116,9 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* CTA Buttons for Desktop / Tablet */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2.5">
+          <CurrencySwitcher />
+
           <button
             type="button"
             onClick={() => setOpenBookingModal(true)}
@@ -138,7 +141,9 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Header Right Trigger */}
-        <div className="flex sm:hidden items-center gap-2">
+        <div className="flex sm:hidden items-center gap-1.5">
+          <CurrencySwitcher />
+
           <button
             type="button"
             onClick={() => goToDashboard()}
