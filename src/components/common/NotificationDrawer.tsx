@@ -42,7 +42,11 @@ const INITIAL_NOTIFICATIONS: DispatchedNotification[] = [
   },
 ];
 
-export const NotificationDrawer: React.FC = () => {
+interface NotificationDrawerProps {
+  showFloatingButton?: boolean;
+}
+
+export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ showFloatingButton = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<DispatchedNotification[]>(() => {
     const saved = localStorage.getItem('lumina_dispatched_notifs');
@@ -50,6 +54,23 @@ export const NotificationDrawer: React.FC = () => {
   });
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Global event listeners for header triggers
+  useEffect(() => {
+    const handleToggle = () => setIsOpen((prev) => !prev);
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
+    window.addEventListener('toggle_notifications', handleToggle);
+    window.addEventListener('open_notifications', handleOpen);
+    window.addEventListener('close_notifications', handleClose);
+
+    return () => {
+      window.removeEventListener('toggle_notifications', handleToggle);
+      window.removeEventListener('open_notifications', handleOpen);
+      window.removeEventListener('close_notifications', handleClose);
+    };
+  }, []);
 
   // Auto trigger notifications on storage changes (e.g. appointment or payment)
   useEffect(() => {
@@ -106,7 +127,7 @@ export const NotificationDrawer: React.FC = () => {
     <>
       {/* Transient Notification Toast */}
       {toastMessage && (
-        <div className="fixed top-24 right-5 z-50 glass-panel bg-[#111827]/95 border border-[#C5A880]/40 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs max-w-md animate-bounce">
+        <div className="fixed top-24 right-5 z-50 glass-panel bg-[#111827]/95 border border-[#C5A880]/40 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs max-w-md animate-fade-in-up">
           <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
             <CheckCircle className="w-4 h-4" />
           </div>
@@ -114,20 +135,22 @@ export const NotificationDrawer: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Bell Trigger on bottom right (above role banner) */}
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-16 sm:bottom-20 right-3 sm:right-6 z-40 p-2.5 sm:p-3 rounded-full bg-slate-900 border border-[#C5A880]/40 text-[#C5A880] shadow-2xl hover:scale-110 transition-all cursor-pointer flex items-center justify-center group"
-        title="View Dispatched Automated SMS & Emails"
-      >
-        <Bell className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-12 transition-transform" />
-        {notifications.length > 0 && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#C5A880] text-[#0B0F19] text-[9px] sm:text-[10px] font-bold flex items-center justify-center shadow">
-            {notifications.length}
-          </span>
-        )}
-      </button>
+      {/* Optional Floating Bell Trigger */}
+      {showFloatingButton && (
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="fixed bottom-24 right-4 z-40 p-3 rounded-full bg-slate-900 border border-[#C5A880]/40 text-[#C5A880] shadow-2xl hover:scale-110 transition-all cursor-pointer flex items-center justify-center group"
+          title="View Dispatched Automated SMS & Emails"
+        >
+          <Bell className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+          {notifications.length > 0 && (
+            <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#C5A880] text-[#0B0F19] text-[10px] font-bold flex items-center justify-center shadow">
+              {notifications.length}
+            </span>
+          )}
+        </button>
+      )}
 
       {/* Slide-out Drawer */}
       {isOpen && (
@@ -163,69 +186,79 @@ export const NotificationDrawer: React.FC = () => {
                 </button>
               </div>
 
-              {/* Action Toolbar */}
-              <div className="flex items-center justify-between py-3 border-b border-slate-800/80 text-xs">
+              {/* Action Controls */}
+              <div className="py-3 flex items-center justify-between gap-2 border-b border-slate-800/80">
                 <button
                   type="button"
                   onClick={triggerTestSMS}
-                  className="text-xs text-[#C5A880] hover:underline flex items-center gap-1 font-medium"
+                  className="px-3 py-1.5 rounded-lg bg-[#C5A880]/15 hover:bg-[#C5A880]/25 text-[#E2CFB6] border border-[#C5A880]/30 text-xs font-semibold flex items-center gap-1.5 transition-colors"
                 >
-                  <Send className="w-3 h-3" />
-                  <span>Send Test SMS Reminder</span>
+                  <Send className="w-3 h-3 text-[#C5A880]" />
+                  <span>Send Test SMS</span>
                 </button>
-                {notifications.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={clearAll}
-                    className="text-[11px] text-slate-500 hover:text-slate-300"
-                  >
-                    Clear All
-                  </button>
-                )}
+
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="text-xs text-slate-400 hover:text-rose-400 transition-colors"
+                >
+                  Clear History
+                </button>
               </div>
 
-              {/* Notifications List */}
-              <div className="mt-3 space-y-3 max-h-[calc(100vh-230px)] overflow-y-auto pr-1">
+              {/* Notification Message List */}
+              <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-1">
                 {notifications.length === 0 ? (
-                  <div className="py-12 text-center text-xs text-slate-500">
-                    No automated notifications dispatched yet. Book a visit or pay an invoice to trigger live alerts!
+                  <div className="py-12 text-center text-slate-500 text-xs">
+                    No dispatched communication records.
                   </div>
                 ) : (
-                  notifications.map((n) => (
+                  notifications.map((notif) => (
                     <div
-                      key={n.id}
-                      className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-1.5 hover:border-slate-700 transition-colors"
+                      key={notif.id}
+                      className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5 hover:border-slate-700 transition-all text-xs"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5 font-semibold text-white">
-                          {n.type === 'sms' ? (
-                            <MessageSquare className="w-3.5 h-3.5 text-blue-400" />
+                        <div className="flex items-center gap-1.5">
+                          {notif.type === 'sms' ? (
+                            <span className="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] font-semibold flex items-center gap-1">
+                              <MessageSquare className="w-2.5 h-2.5" /> SMS
+                            </span>
                           ) : (
-                            <Mail className="w-3.5 h-3.5 text-purple-400" />
+                            <span className="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-semibold flex items-center gap-1">
+                              <Mail className="w-2.5 h-2.5" /> Email
+                            </span>
                           )}
-                          <span className="uppercase text-[10px] tracking-wider text-[#C5A880]">
-                            {n.type.toUpperCase()} • {n.subject}
+                          <span className="text-[11px] font-semibold text-slate-200">
+                            {notif.subject}
                           </span>
-                        </span>
-                        <span className="text-[10px] text-slate-500">{n.timestamp}</span>
+                        </div>
+                        <span className="text-[10px] text-slate-500">{notif.timestamp}</span>
                       </div>
 
-                      <div className="text-[11px] text-slate-400">
-                        To: <span className="text-slate-300 font-medium">{n.recipient}</span>
+                      <div className="text-[11px] text-slate-400 font-mono">
+                        To: {notif.recipient}
                       </div>
 
-                      <p className="text-[11px] text-slate-300 bg-slate-950/60 p-2 rounded-lg border border-slate-800 leading-relaxed font-mono">
-                        "{n.message}"
+                      <p className="text-slate-300 text-xs font-light leading-relaxed bg-slate-950 p-2.5 rounded-lg border border-slate-800/80">
+                        {notif.message}
                       </p>
+
+                      <div className="flex items-center justify-between text-[10px] text-emerald-400 pt-1">
+                        <span className="flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3" /> Carrier Handshake Verified
+                        </span>
+                        <span className="text-slate-500">Latency: 42ms</span>
+                      </div>
                     </div>
                   ))
                 )}
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="pt-4 border-t border-slate-800 text-[11px] text-slate-500 text-center">
-              Simulates production webhooks & automated multi-channel client messaging.
+            {/* Footer Summary */}
+            <div className="pt-4 border-t border-slate-800 text-center text-[11px] text-slate-500">
+              Simulated real-time automated clinic messaging layer
             </div>
 
           </div>

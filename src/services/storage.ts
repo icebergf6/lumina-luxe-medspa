@@ -164,7 +164,16 @@ export const StorageService = {
     this.init();
     try {
       const data = localStorage.getItem(STORAGE_KEYS.SERVICES);
-      return data ? JSON.parse(data) : INITIAL_SERVICES;
+      const items: ServiceItem[] = data ? JSON.parse(data) : INITIAL_SERVICES;
+      return items.map((s) => {
+        if (s.id === 'srv_2' && (s.image.includes('1512290900672') || !s.image)) {
+          return {
+            ...s,
+            image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600',
+          };
+        }
+        return s;
+      });
     } catch {
       return INITIAL_SERVICES;
     }

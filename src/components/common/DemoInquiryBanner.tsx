@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, MessageCircle, X, ExternalLink, Calendar } from 'lucide-react';
+import { MessageCircle, X, ExternalLink } from 'lucide-react';
 
 export const DemoInquiryBanner: React.FC = () => {
   const [bannerDismissed, setBannerDismissed] = useState(false);
@@ -9,9 +9,9 @@ export const DemoInquiryBanner: React.FC = () => {
 
   return (
     <>
-      {/* Top Slim Interactive Demo Banner */}
+      {/* Top Slim Interactive Demo Banner (In-flow above Navbar, no sticky collision) */}
       {!bannerDismissed && (
-        <div className="bg-[#121A2A] border-b border-[#C5A880]/30 text-[#E2CFB6] text-xs py-2 px-4 transition-all sticky top-0 z-50">
+        <div className="bg-[#121A2A] border-b border-[#C5A880]/30 text-[#E2CFB6] text-xs py-2 px-4 transition-all relative z-30">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
               <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
@@ -42,13 +42,13 @@ export const DemoInquiryBanner: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Bottom-Right CTA "Want this for your clinic? Let's talk" */}
+      {/* Floating Bottom-Right CTA "Want this for your clinic? Let's talk" (Landing only, desktop only to prevent mobile crowding) */}
       {ctaVisible && (
         <aside
           aria-label="Portfolio developer contact inquiry"
-          className="fixed bottom-20 right-4 z-40 animate-fade-in"
+          className="fixed bottom-20 right-4 z-40 animate-fade-in hidden sm:block"
         >
-          <div className="glass-panel bg-[#0B0F19]/90 border border-[#C5A880]/40 rounded-2xl p-3 shadow-2xl flex items-center gap-3 backdrop-blur-md">
+          <div className="glass-panel bg-[#0B0F19]/95 border border-[#C5A880]/40 rounded-2xl p-3 shadow-2xl flex items-center gap-3 backdrop-blur-md">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#E2CFB6] to-[#C5A880] flex items-center justify-center text-[#0B0F19] font-bold shadow-md shadow-[#C5A880]/20 flex-shrink-0">
               <MessageCircle className="w-4 h-4" />
             </div>

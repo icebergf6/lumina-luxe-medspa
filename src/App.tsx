@@ -63,8 +63,8 @@ const MainContent: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-[#C5A880]/30 selection:text-[#E2CFB6]">
-      {/* Top Demo Notice & Floating Clinic Inquiry CTA */}
-      <DemoInquiryBanner />
+      {/* Top Demo Notice & Floating Clinic Inquiry CTA (Landing page only) */}
+      {activeView === 'landing' && <DemoInquiryBanner />}
 
       {activeView === 'landing' ? (
         <div className="flex flex-col min-h-screen">
@@ -97,11 +97,11 @@ const MainContent: React.FC = () => {
       {/* Global Command Palette (Ctrl+K or Cmd+K) */}
       <CommandPalette />
 
-      {/* Automated Dispatched SMS/Email Notifications Drawer */}
-      <NotificationDrawer />
+      {/* Automated Dispatched SMS/Email Notifications Drawer (Triggered cleanly via header button or Cmd+K) */}
+      <NotificationDrawer showFloatingButton={false} />
 
-      {/* Floating Demo Persona & Role Switcher Banner */}
-      <DemoRoleBanner />
+      {/* Floating Demo Persona & Role Switcher Banner (Landing page only) */}
+      {activeView === 'landing' && <DemoRoleBanner />}
     </div>
   );
 };

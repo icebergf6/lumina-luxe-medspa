@@ -9,8 +9,16 @@ import { InvoicePrintModal } from './InvoicePrintModal';
 
 export const OverviewView: React.FC = () => {
   const { role, user, setOpenBookingModal, setActiveTab } = useAuth();
-  const { formatPrice } = useCurrency();
+  const { formatPrice, currencyConfig } = useCurrency();
   const [metrics, setMetrics] = useState(() => StorageService.getMetrics());
+
+  const formatScale = (amountInUSD: number) => {
+    const val = amountInUSD * currencyConfig.rateFromUSD;
+    if (val >= 1_000_000_000) return `${currencyConfig.symbol}${(val / 1_000_000_000).toFixed(0)}B`;
+    if (val >= 1_000_000) return `${currencyConfig.symbol}${(val / 1_000_000).toFixed(0)}M`;
+    if (val >= 1_000) return `${currencyConfig.symbol}${(val / 1_000).toFixed(0)}k`;
+    return `${currencyConfig.symbol}${Math.round(val)}`;
+  };
   const [appointments, setAppointments] = useState<Appointment[]>(() => StorageService.getAppointments());
   const [invoices, setInvoices] = useState<Invoice[]>(() => StorageService.getInvoices());
   const [hoveredBarIndex, setHoveredBarIndex] = useState<number | null>(null);
@@ -201,11 +209,11 @@ export const OverviewView: React.FC = () => {
               <div className="flex items-stretch h-56 pt-6">
                 {/* Y-Axis scale */}
                 <div className="flex flex-col justify-between text-[10px] text-slate-400 font-mono pr-3 border-r border-slate-800 select-none pb-6">
-                  <span>$60k</span>
-                  <span>$45k</span>
-                  <span>$30k</span>
-                  <span>$15k</span>
-                  <span>$0k</span>
+                  <span>{formatScale(60000)}</span>
+                  <span>{formatScale(45000)}</span>
+                  <span>{formatScale(30000)}</span>
+                  <span>{formatScale(15000)}</span>
+                  <span>{formatScale(0)}</span>
                 </div>
 
                 {/* Bars */}
@@ -243,7 +251,7 @@ export const OverviewView: React.FC = () => {
           </div>
 
           <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-            <span>Average Order Value: <strong className="text-white tabular-nums">$745.00</strong></span>
+            <span>Average Order Value: <strong className="text-white tabular-nums">{formatPrice(745, true)}</strong></span>
             <span>Monthly Recurring Patients: <strong className="text-emerald-400 tabular-nums">68%</strong></span>
           </div>
         </div>

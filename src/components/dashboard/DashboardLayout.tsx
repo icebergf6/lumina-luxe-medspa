@@ -19,6 +19,7 @@ import {
   BookOpen,
   Package,
   Search,
+  Bell,
 } from 'lucide-react';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
 import { BookingModal } from './views/BookingModal';
@@ -281,6 +282,20 @@ export const DashboardLayout: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Global Currency Switcher */}
             <CurrencySwitcher />
+
+            {/* Automated Dispatch Notifications Trigger */}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open_notifications'))}
+              className="relative p-2 rounded-xl text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 border border-slate-700 transition-colors cursor-pointer"
+              title="Dispatched Communications & System Notifications"
+              aria-label="View automated notifications"
+            >
+              <Bell className="w-3.5 h-3.5 text-[#C5A880]" />
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#C5A880] text-[#0B0F19] text-[9px] font-bold flex items-center justify-center shadow">
+                3
+              </span>
+            </button>
 
             {/* Quick Link to App Guide */}
             <button

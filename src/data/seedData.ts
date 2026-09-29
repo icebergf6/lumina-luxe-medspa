@@ -61,7 +61,7 @@ export const INITIAL_SERVICES: ServiceItem[] = [
     price: 950,
     description: 'Injectable biostimulator that triggers natural collagen reproduction to restore facial volume and skin architecture gracefully.',
     popular: true,
-    image: 'https://images.unsplash.com/photo-1512290900672-1f4a9744cf2f?auto=format&fit=crop&q=80&w=600',
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600',
     recommendedSessions: 3,
   },
   {

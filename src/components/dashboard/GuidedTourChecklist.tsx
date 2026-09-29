@@ -12,7 +12,7 @@ interface TourProgress {
 
 export const GuidedTourChecklist: React.FC = () => {
   const { role, setRole, setActiveTab, setOpenBookingModal } = useAuth();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [progress, setProgress] = useState<TourProgress>(() => {
     try {
       const saved = localStorage.getItem('lumina_guided_tour');
@@ -83,7 +83,7 @@ export const GuidedTourChecklist: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 max-w-xs w-full animate-fade-in-up">
+    <div className="fixed bottom-6 left-4 md:left-72 z-40 max-w-xs w-full animate-fade-in-up">
       <div className="glass-panel bg-[#0B0F19]/95 border border-[#C5A880]/30 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md">
         
         {/* Header Bar */}
