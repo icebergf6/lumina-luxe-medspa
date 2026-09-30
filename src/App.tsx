@@ -10,6 +10,7 @@ import { NotificationDrawer } from './components/common/NotificationDrawer';
 import { Navbar } from './components/landing/Navbar';
 import { HeroSection } from './components/landing/HeroSection';
 import { ServicesSection } from './components/landing/ServicesSection';
+import { ClinicalShowcaseCarousel } from './components/landing/ClinicalShowcaseCarousel';
 import { BeforeAfterSlider } from './components/landing/BeforeAfterSlider';
 import { PatientJourneySection } from './components/landing/PatientJourneySection';
 import { DoctorsSection } from './components/landing/DoctorsSection';
@@ -73,6 +74,7 @@ const MainContent: React.FC = () => {
           <main className="flex-1">
             <HeroSection />
             <ServicesSection />
+            <ClinicalShowcaseCarousel />
             <BeforeAfterSlider />
             <PatientJourneySection />
             <DoctorsSection />

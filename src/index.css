@@ -283,6 +283,26 @@ textarea:focus-visible {
   animation: floatSlow 4.5s ease-in-out infinite;
 }
 
+@keyframes infiniteMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-smooth {
+  display: flex;
+  width: max-content;
+  animation: infiniteMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-smooth:hover {
+  animation-play-state: paused;
+}
+
 /* Strict prefers-reduced-motion support everywhere */
 @media (prefers-reduced-motion: reduce) {
   *,
