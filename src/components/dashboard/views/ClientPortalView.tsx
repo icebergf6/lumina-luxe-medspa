@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { StripeCheckoutModal } from './StripeCheckoutModal';
 import { InvoicePrintModal } from './InvoicePrintModal';
+import { BiometricLongevityRadar } from './BiometricLongevityRadar';
 
 export const ClientPortalView: React.FC = () => {
   const { user, setOpenBookingModal } = useAuth();
@@ -260,6 +261,9 @@ export const ClientPortalView: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Biometric Longevity Passport & Cellular Radar */}
+      <BiometricLongevityRadar />
 
       {/* Grid: My Treatment History & My Invoices */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

@@ -3,6 +3,7 @@ import { StorageService } from '../../services/storage';
 import { useAuth } from '../../context/AuthContext';
 import { useCurrency } from '../../context/CurrencyContext';
 import { Calculator, Check, ArrowRight, Sparkles, ShieldCheck, CreditCard, ChevronRight, Layers } from 'lucide-react';
+import { MembershipCard3D } from './MembershipCard3D';
 
 export const InteractiveEstimator: React.FC = () => {
   const { setOpenBookingModal, triggerBookingWithService } = useAuth();
@@ -283,6 +284,9 @@ export const InteractiveEstimator: React.FC = () => {
           </div>
 
         </div>
+
+        {/* 3D Lumina Noir VIP Membership Card Showcase */}
+        <MembershipCard3D />
 
       </div>
     </section>

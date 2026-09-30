@@ -22,12 +22,17 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
+  const [scrollProgress, setScrollProgress] = useState(0);
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Monitor scroll for navbar blur enhancement
+  // Monitor scroll for navbar blur enhancement & reading progress
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        setScrollProgress((window.scrollY / totalScroll) * 100);
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -125,6 +130,12 @@ export const Navbar: React.FC = () => {
           : 'bg-[#0B0F19]/80 backdrop-blur-sm border-b border-[#C5A880]/15'
       }`}
     >
+      {/* Golden Scroll Progress Bar */}
+      <div
+        className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-[#9D7B50] via-[#E2CFB6] to-[#C5A880] transition-all duration-150 z-50 pointer-events-none"
+        style={{ width: `${scrollProgress}%` }}
+      />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Logo with Monogram */}

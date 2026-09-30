@@ -7,11 +7,13 @@ import { DemoInquiryBanner } from './components/common/DemoInquiryBanner';
 import { NotFoundView } from './components/common/NotFoundView';
 import { CommandPalette } from './components/common/CommandPalette';
 import { NotificationDrawer } from './components/common/NotificationDrawer';
+import { SanctuaryAudioPlayer } from './components/common/SanctuaryAudioPlayer';
 import { Navbar } from './components/landing/Navbar';
 import { HeroSection } from './components/landing/HeroSection';
 import { ServicesSection } from './components/landing/ServicesSection';
 import { ClinicalShowcaseCarousel } from './components/landing/ClinicalShowcaseCarousel';
 import { BeforeAfterSlider } from './components/landing/BeforeAfterSlider';
+import { FacialArchitectureSection } from './components/landing/FacialArchitectureSection';
 import { PatientJourneySection } from './components/landing/PatientJourneySection';
 import { DoctorsSection } from './components/landing/DoctorsSection';
 import { InteractiveEstimator } from './components/landing/InteractiveEstimator';
@@ -76,6 +78,7 @@ const MainContent: React.FC = () => {
             <ServicesSection />
             <ClinicalShowcaseCarousel />
             <BeforeAfterSlider />
+            <FacialArchitectureSection />
             <PatientJourneySection />
             <DoctorsSection />
             <InteractiveEstimator />
@@ -83,6 +86,7 @@ const MainContent: React.FC = () => {
             <FaqSection />
           </main>
           <Footer />
+          <SanctuaryAudioPlayer />
         </div>
       ) : (
         <Suspense fallback={<DashboardLoadingSkeleton />}>
